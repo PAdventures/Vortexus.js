@@ -1,0 +1,16 @@
+{
+  "name": "@vortexus/monorepo",
+  "devDependencies": {
+    "@types/bun": "latest",
+    "lerna": "^8.1.3",
+    "typescript": "^5.4.5"
+  },
+  "license": "GPL-3.0",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "workspaces": [
+    "packages/*"
+  ]
+}
