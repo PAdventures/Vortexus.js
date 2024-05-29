@@ -12,5 +12,8 @@
         "@types/node": "^20.12.12",
         "turbo": "^1.13.3",
         "typescript": "^5.4.5"
+    },
+    "dependencies": {
+        "@changesets/cli": "^2.27.5"
     }
 }
