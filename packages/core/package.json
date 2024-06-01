@@ -1,0 +1,33 @@
+{
+    "name": "@vortexus/core",
+    "version": "0.0.0",
+    "description": "Vortexus.js's core package",
+    "module": ".dist/index.js",
+    "types": ".dist/index.d.ts",
+    "type": "module",
+    "scripts": {
+        "flush": "rimraf ./dist",
+        "build": "npm run flush && tsc"
+    },
+    "keywords": [
+        "vortexus",
+        "discord.js",
+        "framework"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/PAdventures/Vortexus.js",
+        "directory": "packages/core"
+    },
+    "license": "GPL-3.0",
+    "peerDependencies": {
+        "discord.js": "^14.15.2"
+    },
+    "devDependencies": {
+        "discord.js": "^14.15.2"
+    },
+    "dependencies": {
+        "semver": "^7.6.2",
+        "ts-mixer": "^6.0.4"
+    }
+}
