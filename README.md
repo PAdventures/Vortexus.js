@@ -1,5 +1,5 @@
 <h1 align="center">
-    <img src="./images/Vortexus.js Banner White.svg" alt="Vortexus.js White Banner">
+    <img src="./images/Vortexus.js Banner White.svg" alt="Vortexus.js White Banner" width="75%"">
 </h1>
 
 ## About
