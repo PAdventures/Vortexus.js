@@ -2,6 +2,10 @@
     <img src="./images/Vortexus.js Banner White.svg" alt="Vortexus.js White Banner" width="75%"">
 </h1>
 
+## Note
+
+Vortexus.js is currently under development
+
 ## About
 
 Vortexus.js is a complex discord app framework made to be simple out of the box for developers
