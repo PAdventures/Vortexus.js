@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+        "target": "ESNext",
+        "module": "NodeNext",
+        "moduleResolution": "NodeNext",
+
+        "forceConsistentCasingInFileNames": true,
+
+        "esModuleInterop": false,
+        "skipDefaultLibCheck": true,
+        "sourceMap": true,
+
+        "strict": true,
+        "alwaysStrict": true,
+        "newLine": "lf",
+        "pretty": true,
+        "allowSyntheticDefaultImports": true
+    }
+}
