@@ -1,8 +1,9 @@
 import { PermissionResolvable } from "discord.js";
 import { CommandType } from "../../types/constants.js";
 import { AnyCommandBuilder, AnyCommandExecuteFunction } from "../../types/structures.js";
+import { BaseModule, BaseModuleData } from "./BaseModule.js";
 
-export interface CommandModuleData {
+export interface CommandModuleData extends BaseModuleData {
     command_type: CommandType;
     data: AnyCommandBuilder;
     required_bot_permission?: PermissionResolvable;
@@ -11,7 +12,7 @@ export interface CommandModuleData {
     execute: AnyCommandExecuteFunction
 }
 
-export abstract class CommandModule implements CommandModuleData {
+export abstract class CommandModule extends BaseModule implements CommandModuleData {
     public abstract readonly command_type: CommandType;
     public abstract data: AnyCommandBuilder;
     public required_bot_permission?: PermissionResolvable;
