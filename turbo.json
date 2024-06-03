@@ -4,7 +4,10 @@
         "build": {
             "dependsOn": ["^build"],
             "outputs": ["dist"],
-            "inputs": ["scr/**/*"]
+            "inputs": ["scr/**/*", "package.json", "README.md", "tsconfig.json"]
+        },
+        "flush": {
+            "inputs": ["dist"]
         }
     }
 }
