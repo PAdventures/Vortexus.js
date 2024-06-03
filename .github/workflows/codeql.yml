@@ -17,7 +17,7 @@ on:
     paths-ignore:
       - '.github/**'
       - 'images/**'
-      - 'README.md'
+      - '**.md'
   pull_request:
     branches: [ "main" ]
     paths-ignore:
