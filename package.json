@@ -2,8 +2,10 @@
     "name": "@vortexus/monorepo",
     "license": "GPL-3.0",
     "private": true,
+
     "scripts": {
-        "build": "turbo run build"
+        "build": "turbo run build",
+        "flush": "turbo run flush"
     },
     "workspaces": [
         "packages/*"
