@@ -1,5 +1,5 @@
 {
-    "extends": "@vortexus/utility/tsconfig.json",
+    "extends": "@vortexus.js/utility/tsconfig.json",
     "include": [
         "./src/**/*"
     ],
