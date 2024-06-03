@@ -21,10 +21,10 @@
     },
     "license": "GPL-3.0",
     "peerDependencies": {
-        "discord.js": "^14.15.2"
+        "discord.js": "^14.15.3"
     },
     "devDependencies": {
-        "discord.js": "^14.15.2"
+        "discord.js": "^14.15.3"
     },
     "dependencies": {
         "semver": "^7.6.2",
