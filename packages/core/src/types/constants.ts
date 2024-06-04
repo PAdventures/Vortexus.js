@@ -15,6 +15,12 @@ export enum ModuleType {
     CommandModule,
 }
 
+export enum CooldownType {
+    Normal,
+    SubcommandGroup,
+    Subcommand
+}
+
 export enum MessageCommandOptionType {
     String,
     Integer,
