@@ -18,12 +18,16 @@ on:
       - '.github/**'
       - 'images/**'
       - '**.md'
+      - 'package.json'
+      - 'package-lock.json'
   pull_request:
     branches: [ "main" ]
     paths-ignore:
       - '.github/**'
       - 'images/**'
-      - 'README.md'
+      - '**.md'
+      - 'package.json'
+      - 'package-lock.json'
   schedule:
     - cron: '00 12 * * 1'
 
