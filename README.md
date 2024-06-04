@@ -4,7 +4,7 @@
 
 ## Note
 
-Vortexus.js is currently under development
+Vortexus.js is currently under development and nothing has been published to the NPM registry yet
 
 ## About
 
