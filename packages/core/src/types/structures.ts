@@ -3,6 +3,11 @@ import { MessageCommandBuilder } from "../classes/builders/MessageCommandBuilder
 import { CommandType } from "./constants.js";
 import { VortexusClient } from "../classes/structures/VortexusClient.js";
 import { MessageCommandBooleanOptionBuilder, MessageCommandBooleanOptionBuilderData, MessageCommandChannelOptionBuilder, MessageCommandChannelOptionBuilderData, MessageCommandIntegerOptionBuilder, MessageCommandIntegerOptionBuilderData, MessageCommandNumberOptionBuilder, MessageCommandNumberOptionBuilderData, MessageCommandRoleOptionBuilder, MessageCommandRoleOptionBuilderData, MessageCommandStringOptionBuilder, MessageCommandStringOptionBuilderData, MessageCommandUserOptionBuilder, MessageCommandUserOptionBuilderData } from "../classes/builders/MessageCommandOptionBuilders.js";
+import { SlashCommandModule } from "../classes/modules/SlashCommandModule.js";
+import { ContextMenuCommandModule } from '../classes/modules/ContextMenuCommandModule.js';
+import { MessageCommandModule } from "../classes/modules/MessageCommandModule.js";
+import { BaseModule } from "../classes/modules/BaseModule.js";
+import { NormalCooldown, NormalCooldownData, SubcommandCooldown, SubcommandCooldownData, SubcommandGroupCooldown, SubcommandGroupCooldownData } from "../classes/structures/Cooldowns.js";
 
 // Builder interfaces and types
 
@@ -52,12 +57,12 @@ export type AnyMessageCommandOptionBuilder = MessageCommandStringOptionBuilder |
     MessageCommandChannelOptionBuilder |
     MessageCommandRoleOptionBuilder
 export type AnyMessageCommandOptionBuilderData = MessageCommandStringOptionBuilderData |
-MessageCommandIntegerOptionBuilderData |
-MessageCommandNumberOptionBuilderData |
-MessageCommandBooleanOptionBuilderData |
-MessageCommandUserOptionBuilderData |
-MessageCommandChannelOptionBuilderData |
-MessageCommandRoleOptionBuilderData
+    MessageCommandIntegerOptionBuilderData |
+    MessageCommandNumberOptionBuilderData |
+    MessageCommandBooleanOptionBuilderData |
+    MessageCommandUserOptionBuilderData |
+    MessageCommandChannelOptionBuilderData |
+    MessageCommandRoleOptionBuilderData
 export type AnyMessageCommandOptionResolvable = MessageCommandStringOptionResolvable |
     MessageCommandIntegerOptionResolvable |
     MessageCommandNumberOptionResolvable |
@@ -65,3 +70,7 @@ export type AnyMessageCommandOptionResolvable = MessageCommandStringOptionResolv
     MessageCommandUserOptionResolvable |
     MessageCommandChannelOptionResolvable |
     MessageCommandRoleOptionResolvable
+export type AnyCommandModule = SlashCommandModule | ContextMenuCommandModule | MessageCommandModule
+export type AnyVortexusModule = AnyCommandModule | BaseModule
+export type AnyCooldownData = NormalCooldownData | SubcommandGroupCooldownData | SubcommandCooldownData
+export type AnyCooldown = NormalCooldown | SubcommandGroupCooldown | SubcommandCooldown
