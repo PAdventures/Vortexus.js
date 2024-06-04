@@ -1,5 +1,6 @@
 import { ModuleType } from "../../types/constants.js";
 import { CommandModule } from "./CommandModule.js";
+import { generateId } from "@vortexus.js/utility"
 
 export interface BaseModuleData {
     id: string;
@@ -7,7 +8,7 @@ export interface BaseModuleData {
 }
 
 export abstract class BaseModule implements BaseModuleData {
-    public abstract id: string;
+    public readonly id: string = generateId();
     public abstract versions: string | string[];
     public abstract readonly module_type: ModuleType;
 
