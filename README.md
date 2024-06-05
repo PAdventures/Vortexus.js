@@ -6,9 +6,6 @@
     <a href="https://github.com/github/docs/actions/workflows/codeql.yml">
         <img src="https://github.com/github/docs/actions/workflows/codeql.yml/badge.svg">
     </a>
-    <a href="https://discord.gg/Ek4PrXGWUq">
-        <img src="https://img.shields.io/discord/1247615562729652234?color=5865F2&logo=discord&logoColor=white">
-    </a>
 </h3>
 
 ## Note
