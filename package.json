@@ -2,7 +2,6 @@
     "name": "@vortexus.js/monorepo",
     "license": "GPL-3.0",
     "private": true,
-
     "scripts": {
         "build": "turbo run build",
         "flush": "turbo run flush"
@@ -13,10 +12,11 @@
     "devDependencies": {
         "@types/node": "^20.14.0",
         "rimraf": "^5.0.7",
-        "turbo": "^1.13.3",
+        "turbo": "^2.0.1",
         "typescript": "^5.4.5"
     },
     "dependencies": {
         "@changesets/cli": "^2.27.5"
-    }
+    },
+    "packageManager": "npm@10.8.1"
 }
