@@ -14,15 +14,15 @@ export class CooldownManager extends CacheManager<AnyCooldown> {
     private _sweeper?: NodeJS.Timeout;
 
     public get normalCooldowns(): Collection<string, NormalCooldown> {
-        return this.cache.filter(cooldown => cooldown.isNormalCooldown())
+        return this.cache.filter(cooldown => cooldown.isNormalCooldown()) as Collection<string, NormalCooldown>
     }
 
     public get subcommandGroupCooldowns(): Collection<string, SubcommandGroupCooldown> {
-        return this.cache.filter(cooldown => cooldown.isSubcommandGroupCooldown())
+        return this.cache.filter(cooldown => cooldown.isSubcommandGroupCooldown()) as Collection<string, SubcommandGroupCooldown>
     }
 
     public get subcommandCooldowns(): Collection<string, SubcommandCooldown> {
-        return this.cache.filter(cooldown => cooldown.isSubcommandCooldown())
+        return this.cache.filter(cooldown => cooldown.isSubcommandCooldown()) as Collection<string, SubcommandCooldown>
     }
 
     constructor(readonly client: VortexusClient) {
