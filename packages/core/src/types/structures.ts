@@ -3,10 +3,9 @@ import { MessageCommandBuilder } from "../classes/builders/MessageCommandBuilder
 import { CommandType } from "./constants.js";
 import { VortexusClient } from "../classes/structures/VortexusClient.js";
 import { MessageCommandBooleanOptionBuilder, MessageCommandBooleanOptionBuilderData, MessageCommandChannelOptionBuilder, MessageCommandChannelOptionBuilderData, MessageCommandIntegerOptionBuilder, MessageCommandIntegerOptionBuilderData, MessageCommandNumberOptionBuilder, MessageCommandNumberOptionBuilderData, MessageCommandRoleOptionBuilder, MessageCommandRoleOptionBuilderData, MessageCommandStringOptionBuilder, MessageCommandStringOptionBuilderData, MessageCommandUserOptionBuilder, MessageCommandUserOptionBuilderData } from "../classes/builders/MessageCommandOptionBuilders.js";
-import { SlashCommandModule } from "../classes/modules/SlashCommandModule.js";
-import { ContextMenuCommandModule } from '../classes/modules/ContextMenuCommandModule.js';
-import { MessageCommandModule } from "../classes/modules/MessageCommandModule.js";
-import { BaseModule } from "../classes/modules/BaseModule.js";
+import { SlashCommandModule, SlashCommandModuleData } from "../classes/modules/SlashCommandModule.js";
+import { ContextMenuCommandModule, ContextMenuCommandModuleData } from '../classes/modules/ContextMenuCommandModule.js';
+import { MessageCommandModule, MessageCommandModuleData } from "../classes/modules/MessageCommandModule.js";
 import { NormalCooldown, NormalCooldownData, SubcommandCooldown, SubcommandCooldownData, SubcommandGroupCooldown, SubcommandGroupCooldownData } from "../classes/structures/Cooldowns.js";
 
 // Builder interfaces and types
@@ -36,6 +35,10 @@ export type SlashCommandExecuteFunction = (slashCommandExecuteData: SlashCommand
 export type ContextMenuCommandExecuteFunction = (contextMenuCommandExecuteData: ContextMenuCommandExecuteData) => Awaitable<void>;
 export type MessageCommandExecuteFunction = (messageCommandExecuteData: MessageCommandExecuteData) => Awaitable<void>;
 
+export type SlashCommandModuleResolvable = SlashCommandModuleData | JSONEncodable<SlashCommandModuleData>;
+export type ContextMenuCommandModuleResolvable = ContextMenuCommandModuleData | JSONEncodable<ContextMenuCommandModuleData>;
+export type MessageCommandModuleResolvable = MessageCommandModuleData | JSONEncodable<MessageCommandModuleData>;
+
 export type MessageCommandStringOptionResolvable = MessageCommandStringOptionBuilderData | JSONEncodable<MessageCommandStringOptionBuilderData>;
 export type MessageCommandIntegerOptionResolvable = MessageCommandIntegerOptionBuilderData | JSONEncodable<MessageCommandIntegerOptionBuilderData>;
 export type MessageCommandNumberOptionResolvable = MessageCommandNumberOptionBuilderData | JSONEncodable<MessageCommandNumberOptionBuilderData>;
@@ -47,6 +50,7 @@ export type MessageCommandRoleOptionResolvable = MessageCommandRoleOptionBuilder
 // Any types
 
 export type AnyCommandBuilder = SlashCommandBuilder | ContextMenuCommandBuilder | MessageCommandBuilder
+export type AnyCommandBuilderResolvable = AnyCommandBuilder | JSONEncodable<AnyCommandBuilder>
 export type AnyCommandExecuteData = SlashCommandExecuteData | ContextMenuCommandExecuteData | MessageCommandExecuteData
 export type AnyCommandExecuteFunction = SlashCommandExecuteFunction | ContextMenuCommandExecuteFunction | MessageCommandExecuteFunction
 export type AnyMessageCommandOptionBuilder = MessageCommandStringOptionBuilder |
@@ -71,6 +75,10 @@ export type AnyMessageCommandOptionResolvable = MessageCommandStringOptionResolv
     MessageCommandChannelOptionResolvable |
     MessageCommandRoleOptionResolvable
 export type AnyCommandModule = SlashCommandModule | ContextMenuCommandModule | MessageCommandModule
-export type AnyVortexusModule = AnyCommandModule | BaseModule
+export type AnyCommandModuleData = SlashCommandModuleData | ContextMenuCommandModuleData | MessageCommandModuleData
+export type AnyCommandModuleResolvable = SlashCommandModuleResolvable | ContextMenuCommandModuleResolvable | MessageCommandModuleResolvable
+export type AnyVortexusModule = AnyCommandModule // add more later
+export type AnyVortexusModuleData = AnyCommandModuleData // add more later
+export type AnyVortexusModuleResolvable =AnyCommandModuleResolvable // add more later
 export type AnyCooldownData = NormalCooldownData | SubcommandGroupCooldownData | SubcommandCooldownData
 export type AnyCooldown = NormalCooldown | SubcommandGroupCooldown | SubcommandCooldown
