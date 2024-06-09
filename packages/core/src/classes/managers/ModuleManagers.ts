@@ -27,7 +27,7 @@ export class ModuleManager extends CacheManager<AnyVortexusModule> {
         return this._cache.get(resolvable.id)
     }
 
-    public toJSON(): AnyCommandModule[] {
+    public toJSON(): AnyVortexusModule[] {
         return this.cache.map(m => m)
     }
 }
