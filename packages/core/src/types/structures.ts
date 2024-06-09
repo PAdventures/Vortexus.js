@@ -1,4 +1,4 @@
-import { CacheType, ChatInputCommandInteraction, ContextMenuCommandBuilder, SlashCommandBuilder, ContextMenuCommandInteraction, Message, Awaitable, JSONEncodable } from "discord.js";
+import { CacheType, ChatInputCommandInteraction, ContextMenuCommandBuilder, SlashCommandBuilder, ContextMenuCommandInteraction, Message, Awaitable, JSONEncodable, ClientOptions } from "discord.js";
 import { MessageCommandBuilder } from "../classes/builders/MessageCommandBuilder.js";
 import { CommandType } from "./constants.js";
 import { VortexusClient } from "../classes/structures/VortexusClient.js";
@@ -7,6 +7,35 @@ import { SlashCommandModule, SlashCommandModuleData } from "../classes/modules/S
 import { ContextMenuCommandModule, ContextMenuCommandModuleData } from '../classes/modules/ContextMenuCommandModule.js';
 import { MessageCommandModule, MessageCommandModuleData } from "../classes/modules/MessageCommandModule.js";
 import { NormalCooldown, NormalCooldownData, SubcommandCooldown, SubcommandCooldownData, SubcommandGroupCooldown, SubcommandGroupCooldownData } from "../classes/structures/Cooldowns.js";
+import { CooldownCacheSweeperOptions } from "../classes/managers/CooldownManager.js";
+import { PreconditionModule } from "../classes/modules/PreconditionModule.js";
+
+// Client Config
+
+export interface VortexusClientConfig {
+    token: string;
+    client: ClientOptions;
+    cooldowns?: VortexusClientConfigCooldownOptions;
+    commands?: VortexusClientConfigCommandOptions
+}
+
+export interface VortexusClientConfigCooldownOptions {
+    enable: boolean;
+    default_ms?: number;
+    subcommands?: boolean;
+    sweeper: CooldownCacheSweeperOptions
+}
+
+export interface VortexusClientConfigCommandOptions {
+    register?: {
+        globally?: boolean
+        guilds?: string[]
+    },
+    message_commands?: {
+        prefix?: string;
+        arg_separator?: string
+    }
+}
 
 // Builder interfaces and types
 
@@ -44,8 +73,12 @@ export type MessageCommandIntegerOptionResolvable = MessageCommandIntegerOptionB
 export type MessageCommandNumberOptionResolvable = MessageCommandNumberOptionBuilderData | JSONEncodable<MessageCommandNumberOptionBuilderData>;
 export type MessageCommandBooleanOptionResolvable = MessageCommandBooleanOptionBuilderData | JSONEncodable<MessageCommandBooleanOptionBuilderData>;
 export type MessageCommandUserOptionResolvable = MessageCommandUserOptionBuilderData | JSONEncodable<MessageCommandUserOptionBuilderData>;
-export type MessageCommandChannelOptionResolvable = MessageCommandChannelOptionBuilderData | JSONEncodable<MessageCommandChannelOptionBuilderData>
-export type MessageCommandRoleOptionResolvable = MessageCommandRoleOptionBuilderData | JSONEncodable<MessageCommandRoleOptionBuilderData>
+export type MessageCommandChannelOptionResolvable = MessageCommandChannelOptionBuilderData | JSONEncodable<MessageCommandChannelOptionBuilderData>;
+export type MessageCommandRoleOptionResolvable = MessageCommandRoleOptionBuilderData | JSONEncodable<MessageCommandRoleOptionBuilderData>;
+
+export type SlashCommandPreconditionExecuteFunction = (slashCommandExecuteData: SlashCommandExecuteData, precondition: PreconditionModule) => Awaitable<boolean>;
+export type ContextMenuCommandPreconditionExecuteFunction = (contextMenuCommandExecuteData: ContextMenuCommandExecuteData, precondition: PreconditionModule) => Awaitable<boolean>;
+export type MessageCommandPreconditionExecuteFunction = (messageCommandExecuteData: MessageCommandExecuteData, precondition: PreconditionModule) => Awaitable<boolean>;
 
 // Any types
 
@@ -82,3 +115,4 @@ export type AnyVortexusModuleData = AnyCommandModuleData // add more later
 export type AnyVortexusModuleResolvable =AnyCommandModuleResolvable // add more later
 export type AnyCooldownData = NormalCooldownData | SubcommandGroupCooldownData | SubcommandCooldownData
 export type AnyCooldown = NormalCooldown | SubcommandGroupCooldown | SubcommandCooldown
+export type AnyPreconditionExecuteFunction = SlashCommandPreconditionExecuteFunction | ContextMenuCommandPreconditionExecuteFunction | MessageCommandPreconditionExecuteFunction
