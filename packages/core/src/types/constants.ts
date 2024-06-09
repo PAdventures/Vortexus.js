@@ -13,6 +13,7 @@ export enum CommandType {
 export enum ModuleType {
     DefaultModule,
     CommandModule,
+    PreconditionModule
 }
 
 export enum CooldownType {
