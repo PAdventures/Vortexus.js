@@ -25,8 +25,11 @@ export class CooldownManager extends CacheManager<AnyCooldown> {
         return this.cache.filter(cooldown => cooldown.isSubcommandCooldown()) as Collection<string, SubcommandCooldown>
     }
 
-    constructor(readonly client: VortexusClient) {
+    constructor(readonly client: VortexusClient, options?: CooldownCacheSweeperOptions) {
         super()
+        if (options) {
+            this.setCooldownCacheSweeper(options)
+        }
     }
 
     public create(data: NormalCooldownData): NormalCooldown
@@ -122,10 +125,10 @@ export class CooldownManager extends CacheManager<AnyCooldown> {
         })
     }
 
-    public setCooldownCacheSweeper(options: Omit<CooldownCacheSweeperOptions, "filter">): NodeJS.Timeout {
+    public setCooldownCacheSweeper(options: CooldownCacheSweeperOptions): NodeJS.Timeout {
         if (this._sweeper) clearInterval(this._sweeper);
 
-        return this._sweeper = setInterval(() => this.sweepCache(), options.sweepFrequencyMs).unref()
+        return this._sweeper = setInterval(() => this.sweepCache(options), options.sweepFrequencyMs).unref()
     }
 
     public sweepCache(options?: Omit<CooldownCacheSweeperOptions, "sweepFrequencyMs">): void {
