@@ -28,7 +28,8 @@
     },
     "dependencies": {
         "semver": "^7.6.2",
-        "ts-mixer": "^6.0.4"
+        "ts-mixer": "^6.0.4",
+        "@vortexus.js/utility": "*"
     },
     "exports": {
         ".": {
