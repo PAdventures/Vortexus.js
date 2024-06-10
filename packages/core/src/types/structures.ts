@@ -76,9 +76,9 @@ export type MessageCommandUserOptionResolvable = MessageCommandUserOptionBuilder
 export type MessageCommandChannelOptionResolvable = MessageCommandChannelOptionBuilderData | JSONEncodable<MessageCommandChannelOptionBuilderData>;
 export type MessageCommandRoleOptionResolvable = MessageCommandRoleOptionBuilderData | JSONEncodable<MessageCommandRoleOptionBuilderData>;
 
-export type SlashCommandPreconditionExecuteFunction = (slashCommandExecuteData: SlashCommandExecuteData, precondition: PreconditionModule) => Awaitable<boolean>;
-export type ContextMenuCommandPreconditionExecuteFunction = (contextMenuCommandExecuteData: ContextMenuCommandExecuteData, precondition: PreconditionModule) => Awaitable<boolean>;
-export type MessageCommandPreconditionExecuteFunction = (messageCommandExecuteData: MessageCommandExecuteData, precondition: PreconditionModule) => Awaitable<boolean>;
+export type SlashCommandPreconditionExecuteFunction = (slashCommandModuleData: SlashCommandModuleData, precondition: PreconditionModule) => Awaitable<boolean>;
+export type ContextMenuCommandPreconditionExecuteFunction = (contextMenuCommandModuleData: ContextMenuCommandModuleData, precondition: PreconditionModule) => Awaitable<boolean>;
+export type MessageCommandPreconditionExecuteFunction = (messageCommandModuleData: MessageCommandModuleData, precondition: PreconditionModule) => Awaitable<boolean>;
 
 // Any types
 
