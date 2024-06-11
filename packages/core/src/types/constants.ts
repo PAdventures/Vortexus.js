@@ -36,3 +36,8 @@ export enum MessageCommandMentionablesValueType {
     Snowflake,
     Mention
 }
+
+export enum PreconditionResultType {
+    Pass,
+    Fail
+}
