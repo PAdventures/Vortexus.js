@@ -1,6 +1,7 @@
 import { ModuleType } from "../../types/constants.js";
 import { CommandModule } from "./CommandModule.js";
 import { generateId } from "@vortexus.js/utility"
+import { PreconditionModule } from "./PreconditionModule.js";
 
 export interface BaseModuleData {
     id: string;
@@ -14,5 +15,9 @@ export abstract class BaseModule implements BaseModuleData {
 
     public isCommandModule(): this is CommandModule {
         return this.module_type === ModuleType.CommandModule
+    }
+
+    public isPreconditionModule(): this is PreconditionModule {
+        return this.module_type === ModuleType.PreconditionModule
     }
 }
