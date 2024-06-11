@@ -58,29 +58,29 @@ export class CooldownManager extends CacheManager<AnyCooldown> {
         return cooldown
     }
 
-    public find(data: NormalCooldownData): NormalCooldown | undefined
-    public find(data: SubcommandCooldownData): SubcommandCooldown | undefined
-    public find(data: SubcommandGroupCooldownData): SubcommandGroupCooldown | undefined
-    public find(data: AnyCooldownData): AnyCooldown | undefined {
+    public find(data: Partial<Omit<NormalCooldownData, 'endsAt'>>): NormalCooldown | undefined
+    public find(data: Partial<Omit<SubcommandCooldownData, 'endsAt'>>): SubcommandCooldown | undefined
+    public find(data: Partial<Omit<SubcommandGroupCooldownData, 'endsAt'>>): SubcommandGroupCooldown | undefined
+    public find(data: Partial<Omit<AnyCooldownData, 'endsAt'>>): AnyCooldown | undefined {
         switch (data.cooldown_type) {
             case CooldownType.Normal: {
-                return this.findNormal(data as NormalCooldownData)
+                return this.findNormal(data as Partial<Omit<NormalCooldownData, 'endsAt'>>)
             }
             case CooldownType.Subcommand: {
-                return this.findSubcommand(data as SubcommandCooldownData)
+                return this.findSubcommand(data as Partial<Omit<SubcommandCooldownData, 'endsAt'>>)
             }
             case CooldownType.SubcommandGroup: {
-                return this.findSubcommandGroup(data as SubcommandGroupCooldownData)
+                return this.findSubcommandGroup(data as Partial<Omit<SubcommandGroupCooldownData, 'endsAt'>>)
             }
         }
     }
 
-    private findNormal(data: NormalCooldownData): NormalCooldown | undefined {
+    private findNormal(data: Partial<Omit<NormalCooldownData, 'endsAt'>>): NormalCooldown | undefined {
         return this.normalCooldowns.find(cooldown => {
-            if (data.userId !== cooldown.userId) return false;
+            if (data.userId && data.userId !== cooldown.userId) return false;
             if (data.guildId && data.guildId !== cooldown.guildId) return false;
             if (data.channelId && data.channelId !== cooldown.channelId) return false;
-            if (data.commandName !== cooldown.commandName) return false;
+            if (data.commandName && data.commandName !== cooldown.commandName) return false;
 
             if (cooldown.hasEnded()) {
                 this._cache.delete(cooldown.id)
@@ -91,13 +91,13 @@ export class CooldownManager extends CacheManager<AnyCooldown> {
         })
     }
 
-    private findSubcommand(data: SubcommandCooldownData): SubcommandCooldown | undefined {
+    private findSubcommand(data: Partial<Omit<SubcommandCooldownData, 'endsAt'>>): SubcommandCooldown | undefined {
         return this.subcommandCooldowns.find(cooldown => {
-            if (data.userId !== cooldown.userId) return false;
+            if (data.userId && data.userId !== cooldown.userId) return false;
             if (data.guildId && data.guildId !== cooldown.guildId) return false;
             if (data.channelId && data.channelId !== cooldown.channelId) return false;
             if (data.commandName && data.commandName !== cooldown.commandName) return false;
-            if (data.commandSubcommandName !== cooldown.commandSubcommandName) return false;
+            if (data.commandSubcommandName && data.commandSubcommandName !== cooldown.commandSubcommandName) return false;
 
             if (cooldown.hasEnded()) {
                 this._cache.delete(cooldown.id)
@@ -108,13 +108,13 @@ export class CooldownManager extends CacheManager<AnyCooldown> {
         })
     }
 
-    private findSubcommandGroup(data: SubcommandGroupCooldownData): SubcommandGroupCooldown | undefined {
+    private findSubcommandGroup(data: Partial<Omit<SubcommandGroupCooldownData, 'endsAt'>>): SubcommandGroupCooldown | undefined {
         return this.subcommandGroupCooldowns.find(cooldown => {
-            if (data.userId !== cooldown.userId) return false;
+            if (data.userId && data.userId !== cooldown.userId) return false;
             if (data.guildId && data.guildId !== cooldown.guildId) return false;
             if (data.channelId && data.channelId !== cooldown.channelId) return false;
             if (data.commandName && data.commandName !== cooldown.commandName) return false;
-            if (data.commandSubcommandGroupName !== cooldown.commandSubcommandGroupName) return false;
+            if (data.commandSubcommandGroupName && data.commandSubcommandGroupName !== cooldown.commandSubcommandGroupName) return false;
 
             if (cooldown.hasEnded()) {
                 this._cache.delete(cooldown.id)
