@@ -1,10 +1,8 @@
 import { DMChannel, Guild, PartialDMChannel, TextBasedChannel, User } from "discord.js";
 import { CooldownManager } from "../managers/CooldownManager.js";
 import { generateId } from '@vortexus.js/utility';
-import { CooldownType } from "../../types/constants.js";
 
-export interface BaseCooldownData {
-    cooldown_type: CooldownType
+export interface CooldownData {
     userId: string;
     endsAt: Date;
     guildId?: string;
@@ -12,22 +10,7 @@ export interface BaseCooldownData {
     commandName: string;
 }
 
-export interface NormalCooldownData extends BaseCooldownData {
-    cooldown_type: CooldownType.Normal;
-}
-
-export interface SubcommandGroupCooldownData extends BaseCooldownData {
-    cooldown_type: CooldownType.SubcommandGroup;
-    commandSubcommandGroupName: string;
-}
-
-export interface SubcommandCooldownData extends BaseCooldownData {
-    cooldown_type: CooldownType.Subcommand
-    commandSubcommandName: string;
-}
-
-export abstract class BaseCooldown implements BaseCooldownData {
-    readonly abstract cooldown_type: CooldownType;
+export class Cooldown implements CooldownData {
     readonly id: string;
     readonly userId: string;
     readonly endsAt: Date;
@@ -61,7 +44,7 @@ export abstract class BaseCooldown implements BaseCooldownData {
         return undefined
     }
 
-    constructor(data: BaseCooldownData, readonly manager: CooldownManager) {
+    constructor(data: CooldownData, readonly manager: CooldownManager) {
         this.id = generateId();
         this.userId = data.userId;
         this.endsAt = data.endsAt;
@@ -74,78 +57,13 @@ export abstract class BaseCooldown implements BaseCooldownData {
         return this.endsAt.getTime() <= Date.now()
     }
 
-    public isNormalCooldown(): this is NormalCooldown {
-        return this.cooldown_type === CooldownType.Normal
-    }
-
-    public isSubcommandGroupCooldown(): this is SubcommandGroupCooldown {
-        return this.cooldown_type === CooldownType.SubcommandGroup
-    }
-
-    public isSubcommandCooldown(): this is SubcommandCooldown {
-        return this.cooldown_type === CooldownType.Subcommand
-    }
-
-    public _toJSON(): BaseCooldownData {
+    public toJSON(): CooldownData & { id: string } {
         return {
-            cooldown_type: this.cooldown_type,
+            id: this.id,
             userId: this.userId,
             endsAt: this.endsAt,
             guildId: this.guildId,
             commandName: this.commandName,
-        }
-    }
-}
-
-export class NormalCooldown extends BaseCooldown implements NormalCooldownData {
-    readonly cooldown_type: CooldownType.Normal = CooldownType.Normal;
-
-    constructor(data: NormalCooldownData, readonly manager: CooldownManager) {
-        super(data, manager)
-    }
-
-    public toJSON(): NormalCooldownData {
-        return {
-            ...this._toJSON(),
-            cooldown_type: this.cooldown_type
-        }
-    }
-}
-
-export class SubcommandGroupCooldown extends BaseCooldown implements SubcommandGroupCooldownData {
-    readonly cooldown_type: CooldownType.SubcommandGroup = CooldownType.SubcommandGroup;
-    readonly commandSubcommandGroupName: string;
-
-    constructor(data: SubcommandGroupCooldownData, readonly manager: CooldownManager) {
-        super(data, manager)
-
-        this.commandSubcommandGroupName = data.commandSubcommandGroupName;
-    }
-
-    public toJSON(): SubcommandGroupCooldownData {
-        return {
-            ...this._toJSON(),
-            cooldown_type: this.cooldown_type,
-            commandSubcommandGroupName: this.commandSubcommandGroupName,
-        }
-    }
-}
-
-export class SubcommandCooldown extends BaseCooldown implements SubcommandCooldownData {
-    readonly cooldown_type: CooldownType.Subcommand = CooldownType.Subcommand;
-    readonly commandSubcommandName: string;
-
-    constructor(data: SubcommandCooldownData, readonly manager: CooldownManager) {
-        super(data, manager)
-
-        this.commandSubcommandName = data.commandSubcommandName
-    }
-
-    public toJSON(): SubcommandCooldownData {
-        return {
-            ...this._toJSON(),
-            cooldown_type: this.cooldown_type,
-            commandSubcommandName: this.commandSubcommandName,
         }
     }
 }

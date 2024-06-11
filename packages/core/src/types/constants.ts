@@ -16,12 +16,6 @@ export enum ModuleType {
     PreconditionModule
 }
 
-export enum CooldownType {
-    Normal,
-    SubcommandGroup,
-    Subcommand
-}
-
 export enum MessageCommandOptionType {
     String,
     Integer,

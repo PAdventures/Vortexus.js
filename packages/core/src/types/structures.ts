@@ -6,7 +6,6 @@ import { MessageCommandBooleanOptionBuilder, MessageCommandBooleanOptionBuilderD
 import { SlashCommandModule, SlashCommandModuleData } from "../classes/modules/SlashCommandModule.js";
 import { ContextMenuCommandModule, ContextMenuCommandModuleData } from '../classes/modules/ContextMenuCommandModule.js';
 import { MessageCommandModule, MessageCommandModuleData } from "../classes/modules/MessageCommandModule.js";
-import { NormalCooldown, NormalCooldownData, SubcommandCooldown, SubcommandCooldownData, SubcommandGroupCooldown, SubcommandGroupCooldownData } from "../classes/structures/Cooldowns.js";
 import { CooldownCacheSweeperOptions } from "../classes/managers/CooldownManager.js";
 import { Precondition, PreconditionModule } from "../classes/modules/PreconditionModule.js";
 
@@ -116,6 +115,4 @@ export type AnyCommandModuleResolvable = SlashCommandModuleResolvable | ContextM
 export type AnyVortexusModule = AnyCommandModule // add more later
 export type AnyVortexusModuleData = AnyCommandModuleData // add more later
 export type AnyVortexusModuleResolvable =AnyCommandModuleResolvable // add more later
-export type AnyCooldownData = NormalCooldownData | SubcommandGroupCooldownData | SubcommandCooldownData
-export type AnyCooldown = NormalCooldown | SubcommandGroupCooldown | SubcommandCooldown
 export type AnyPreconditionExecuteFunction = SlashCommandPreconditionExecuteFunction | ContextMenuCommandPreconditionExecuteFunction | MessageCommandPreconditionExecuteFunction
