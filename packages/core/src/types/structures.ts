@@ -8,7 +8,7 @@ import { ContextMenuCommandModule, ContextMenuCommandModuleData } from '../class
 import { MessageCommandModule, MessageCommandModuleData } from "../classes/modules/MessageCommandModule.js";
 import { NormalCooldown, NormalCooldownData, SubcommandCooldown, SubcommandCooldownData, SubcommandGroupCooldown, SubcommandGroupCooldownData } from "../classes/structures/Cooldowns.js";
 import { CooldownCacheSweeperOptions } from "../classes/managers/CooldownManager.js";
-import { PreconditionModule } from "../classes/modules/PreconditionModule.js";
+import { Precondition, PreconditionModule } from "../classes/modules/PreconditionModule.js";
 
 // Client Config
 
@@ -44,20 +44,23 @@ export interface SlashCommandExecuteData<Cached extends CacheType = CacheType> {
     builder: SlashCommandBuilder;
     interaction: ChatInputCommandInteraction<Cached>;
     client: VortexusClient<true>;
+    module: SlashCommandModule;
 }
 
 export interface ContextMenuCommandExecuteData<Cached extends CacheType = CacheType> {
     type: CommandType.ContextMenuCommand;
     builder: ContextMenuCommandBuilder;
     interaction: ContextMenuCommandInteraction<Cached>;
-    client: VortexusClient<true>
+    client: VortexusClient<true>;
+    module: ContextMenuCommandModule;
 }
 
 export interface MessageCommandExecuteData<InGuild extends boolean = boolean> {
     type: CommandType.MessageCommand;
     builder: MessageCommandBuilder;
     message: Message<InGuild>;
-    client: VortexusClient<true>
+    client: VortexusClient<true>;
+    module: MessageCommandModule;
 }
 
 export type SlashCommandExecuteFunction = (slashCommandExecuteData: SlashCommandExecuteData) => Awaitable<void>;
@@ -76,9 +79,9 @@ export type MessageCommandUserOptionResolvable = MessageCommandUserOptionBuilder
 export type MessageCommandChannelOptionResolvable = MessageCommandChannelOptionBuilderData | JSONEncodable<MessageCommandChannelOptionBuilderData>;
 export type MessageCommandRoleOptionResolvable = MessageCommandRoleOptionBuilderData | JSONEncodable<MessageCommandRoleOptionBuilderData>;
 
-export type SlashCommandPreconditionExecuteFunction = (slashCommandModuleData: SlashCommandModuleData, precondition: PreconditionModule) => Awaitable<boolean>;
-export type ContextMenuCommandPreconditionExecuteFunction = (contextMenuCommandModuleData: ContextMenuCommandModuleData, precondition: PreconditionModule) => Awaitable<boolean>;
-export type MessageCommandPreconditionExecuteFunction = (messageCommandModuleData: MessageCommandModuleData, precondition: PreconditionModule) => Awaitable<boolean>;
+export type SlashCommandPreconditionExecuteFunction = (slashCommandExecuteData: SlashCommandExecuteData, precondition: PreconditionModule) => Awaitable<Precondition.Result>;
+export type ContextMenuCommandPreconditionExecuteFunction = (contextMenuCommandExecuteData: ContextMenuCommandExecuteData, precondition: PreconditionModule) => Awaitable<Precondition.Result>;
+export type MessageCommandPreconditionExecuteFunction = (messageCommandExecuteData: MessageCommandExecuteData, precondition: PreconditionModule) => Awaitable<Precondition.Result>;
 
 // Any types
 
