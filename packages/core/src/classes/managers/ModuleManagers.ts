@@ -1,4 +1,4 @@
-import { AnyCommandModule, AnyVortexusModule, AnyVortexusModuleData } from "../../types/structures.js";
+import { AnyVortexusModule, AnyVortexusModuleData } from "../../types/structures.js";
 import { ContextMenuCommandModule, ContextMenuCommandModuleData } from "../modules/ContextMenuCommandModule.js";
 import { MessageCommandModule, MessageCommandModuleData } from "../modules/MessageCommandModule.js";
 import { SlashCommandModule, SlashCommandModuleData } from "../modules/SlashCommandModule.js";
@@ -27,7 +27,7 @@ export class ModuleManager extends CacheManager<AnyVortexusModule> {
         return this._cache.get(resolvable.id)
     }
 
-    public toJSON(): AnyVortexusModule[] {
+    public toJSON(): AnyVortexusModuleData[] {
         return this.cache.map(m => m)
     }
 }
