@@ -6,6 +6,7 @@ import { PreconditionModule } from "./PreconditionModule.js";
 export interface BaseModuleData {
     id: string;
     versions: string | string[];
+    module_type: ModuleType;
 }
 
 export abstract class BaseModule implements BaseModuleData {
@@ -19,5 +20,13 @@ export abstract class BaseModule implements BaseModuleData {
 
     public isPreconditionModule(): this is PreconditionModule {
         return this.module_type === ModuleType.PreconditionModule
+    }
+
+    protected toJSON(): BaseModuleData {
+        return {
+            id: this.id,
+            versions: this.versions,
+            module_type: this.module_type
+        }
     }
 }
