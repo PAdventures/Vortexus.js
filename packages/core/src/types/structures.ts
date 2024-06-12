@@ -7,7 +7,7 @@ import { SlashCommandModule, SlashCommandModuleData } from "../classes/modules/S
 import { ContextMenuCommandModule, ContextMenuCommandModuleData } from '../classes/modules/ContextMenuCommandModule.js';
 import { MessageCommandModule, MessageCommandModuleData } from "../classes/modules/MessageCommandModule.js";
 import { CooldownCacheSweeperOptions } from "../classes/managers/CooldownManager.js";
-import { Precondition, PreconditionModule } from "../classes/modules/PreconditionModule.js";
+import { Precondition, PreconditionModule, PreconditionModuleData } from "../classes/modules/PreconditionModule.js";
 
 // Client Config
 
@@ -21,7 +21,6 @@ export interface VortexusClientConfig {
 export interface VortexusClientConfigCooldownOptions {
     enable: boolean;
     default_ms?: number;
-    subcommands?: boolean;
     sweeper: CooldownCacheSweeperOptions
 }
 
@@ -70,6 +69,8 @@ export type SlashCommandModuleResolvable = SlashCommandModuleData | JSONEncodabl
 export type ContextMenuCommandModuleResolvable = ContextMenuCommandModuleData | JSONEncodable<ContextMenuCommandModuleData>;
 export type MessageCommandModuleResolvable = MessageCommandModuleData | JSONEncodable<MessageCommandModuleData>;
 
+export type PreconditionModuleResolvable = PreconditionModuleData | JSONEncodable<PreconditionModuleData>;
+
 export type MessageCommandStringOptionResolvable = MessageCommandStringOptionBuilderData | JSONEncodable<MessageCommandStringOptionBuilderData>;
 export type MessageCommandIntegerOptionResolvable = MessageCommandIntegerOptionBuilderData | JSONEncodable<MessageCommandIntegerOptionBuilderData>;
 export type MessageCommandNumberOptionResolvable = MessageCommandNumberOptionBuilderData | JSONEncodable<MessageCommandNumberOptionBuilderData>;
@@ -112,7 +113,7 @@ export type AnyMessageCommandOptionResolvable = MessageCommandStringOptionResolv
 export type AnyCommandModule = SlashCommandModule | ContextMenuCommandModule | MessageCommandModule
 export type AnyCommandModuleData = SlashCommandModuleData | ContextMenuCommandModuleData | MessageCommandModuleData
 export type AnyCommandModuleResolvable = SlashCommandModuleResolvable | ContextMenuCommandModuleResolvable | MessageCommandModuleResolvable
-export type AnyVortexusModule = AnyCommandModule // add more later
-export type AnyVortexusModuleData = AnyCommandModuleData // add more later
-export type AnyVortexusModuleResolvable =AnyCommandModuleResolvable // add more later
+export type AnyVortexusModule = AnyCommandModule | PreconditionModule
+export type AnyVortexusModuleData = AnyCommandModuleData | PreconditionModuleData
+export type AnyVortexusModuleResolvable = AnyCommandModuleResolvable | PreconditionModuleResolvable
 export type AnyPreconditionExecuteFunction = SlashCommandPreconditionExecuteFunction | ContextMenuCommandPreconditionExecuteFunction | MessageCommandPreconditionExecuteFunction
