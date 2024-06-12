@@ -18,6 +18,7 @@ on:
       - '.github/**'
       - 'images/**'
       - '**.md'
+      - 'package.json'
       - 'packages/**/package.json'
       - 'package-lock.json'
   pull_request:
