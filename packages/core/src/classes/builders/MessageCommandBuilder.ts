@@ -1,5 +1,5 @@
 import { normalizeArray, RestOrArray } from "discord.js";
-import { AnyMessageCommandOptionBuilderData, MessageCommandIntegerOptionResolvable, MessageCommandStringOptionResolvable } from "../../types/structures.js";
+import { AnyMessageCommandOptionBuilder, AnyMessageCommandOptionBuilderData, MessageCommandIntegerOptionResolvable, MessageCommandStringOptionResolvable } from "../../types/structures.js";
 import { MessageCommandBooleanOptionBuilder, MessageCommandChannelOptionBuilder, MessageCommandIntegerOptionBuilder, MessageCommandNumberOptionBuilder, MessageCommandRoleOptionBuilder, MessageCommandStringOptionBuilder, MessageCommandUserOptionBuilder } from "./MessageCommandOptionBuilders.js";
 
 export interface MessageCommandBuilderData {
@@ -8,7 +8,7 @@ export interface MessageCommandBuilderData {
     aliases?: string[];
     dm_permission?: boolean;
     allow_bots?: boolean;
-    options?: AnyMessageCommandOptionBuilderData[]
+    options?: (AnyMessageCommandOptionBuilder | AnyMessageCommandOptionBuilderData)[]
 }
 
 export class MessageCommandBuilder implements MessageCommandBuilderData {
@@ -17,7 +17,7 @@ export class MessageCommandBuilder implements MessageCommandBuilderData {
     public aliases?: string[] | undefined;
     public dm_permission?: boolean | undefined;
     public allow_bots?: boolean | undefined;
-    public options: AnyMessageCommandOptionBuilderData[] = [];
+    public options: AnyMessageCommandOptionBuilder[] = [];
 
     constructor(data: MessageCommandBuilderData) {
         this.setName(data.name)
@@ -134,7 +134,7 @@ export class MessageCommandBuilder implements MessageCommandBuilderData {
             aliases: this.aliases,
             dm_permission: this.dm_permission,
             allow_bots: this.allow_bots,
-            options: this.options.map(option => JSON.parse(JSON.stringify(option)))
+            options: this.options.map(option => option.toJSON())
         }
     }
 }
