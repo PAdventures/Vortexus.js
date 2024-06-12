@@ -27,9 +27,10 @@
         "discord.js": "^14.15.3"
     },
     "dependencies": {
+        "@sapphire/result": "^2.6.6",
+        "@vortexus.js/utility": "*",
         "semver": "^7.6.2",
-        "ts-mixer": "^6.0.4",
-        "@vortexus.js/utility": "*"
+        "ts-mixer": "^6.0.4"
     },
     "exports": {
         ".": {
