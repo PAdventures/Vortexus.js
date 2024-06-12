@@ -52,6 +52,16 @@ export abstract class PreconditionModule extends BaseModule implements Precondit
             message
         })
     }
+
+    public toJSON(): PreconditionModuleData {
+        return {
+            ...super.toJSON(),
+            unique_name: this.unique_name,
+            slashCommandExecute: this.slashCommandExecute,
+            contextCommandExecute: this.contextMenuCommandExecute,
+            messageCommandExecute: this.messageCommandExecute,
+        }
+    }
 }
 
 export namespace Precondition {
