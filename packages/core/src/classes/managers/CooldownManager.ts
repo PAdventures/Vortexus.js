@@ -1,5 +1,5 @@
 import { VortexusClient } from "../structures/VortexusClient.js";
-import { CooldownData, Cooldown } from "../structures/Cooldowns.js";
+import { CooldownData, Cooldown } from "../structures/Cooldown.js";
 import { CacheManager } from "./CacheManager.js";
 
 export interface CooldownCacheSweeperOptions {

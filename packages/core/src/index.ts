@@ -15,4 +15,4 @@ export * from "./classes/modules/MessageCommandModule.js";
 export * from "./classes/modules/SlashCommandModule.js";
 export * from "./classes/modules/PreconditionModule.js"
 
-export * from "./classes/structures/Cooldowns.js"
+export * from "./classes/structures/Cooldown.js"
