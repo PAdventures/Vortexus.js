@@ -10,12 +10,6 @@ export enum CommandType {
     MessageCommand
 }
 
-export enum ModuleType {
-    DefaultModule,
-    CommandModule,
-    PreconditionModule
-}
-
 export enum MessageCommandOptionType {
     String,
     Integer,

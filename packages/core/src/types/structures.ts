@@ -7,7 +7,7 @@ import { SlashCommandModule, SlashCommandModuleData } from "../classes/modules/S
 import { ContextMenuCommandModule, ContextMenuCommandModuleData } from '../classes/modules/ContextMenuCommandModule.js';
 import { MessageCommandModule, MessageCommandModuleData } from "../classes/modules/MessageCommandModule.js";
 import { CooldownCacheSweeperOptions } from "../classes/managers/CooldownManager.js";
-import { Precondition, PreconditionModule, PreconditionModuleData } from "../classes/modules/PreconditionModule.js";
+import { Precondition, PreconditionData } from "../classes/structures/Precondition.js";
 
 // Client Config
 
@@ -69,8 +69,6 @@ export type SlashCommandModuleResolvable = SlashCommandModuleData | JSONEncodabl
 export type ContextMenuCommandModuleResolvable = ContextMenuCommandModuleData | JSONEncodable<ContextMenuCommandModuleData>;
 export type MessageCommandModuleResolvable = MessageCommandModuleData | JSONEncodable<MessageCommandModuleData>;
 
-export type PreconditionModuleResolvable = PreconditionModuleData | JSONEncodable<PreconditionModuleData>;
-
 export type MessageCommandStringOptionResolvable = MessageCommandStringOptionBuilderData | JSONEncodable<MessageCommandStringOptionBuilderData>;
 export type MessageCommandIntegerOptionResolvable = MessageCommandIntegerOptionBuilderData | JSONEncodable<MessageCommandIntegerOptionBuilderData>;
 export type MessageCommandNumberOptionResolvable = MessageCommandNumberOptionBuilderData | JSONEncodable<MessageCommandNumberOptionBuilderData>;
@@ -79,9 +77,11 @@ export type MessageCommandUserOptionResolvable = MessageCommandUserOptionBuilder
 export type MessageCommandChannelOptionResolvable = MessageCommandChannelOptionBuilderData | JSONEncodable<MessageCommandChannelOptionBuilderData>;
 export type MessageCommandRoleOptionResolvable = MessageCommandRoleOptionBuilderData | JSONEncodable<MessageCommandRoleOptionBuilderData>;
 
-export type SlashCommandPreconditionExecuteFunction = (slashCommandExecuteData: SlashCommandExecuteData, precondition: PreconditionModule) => Awaitable<Precondition.Result>;
-export type ContextMenuCommandPreconditionExecuteFunction = (contextMenuCommandExecuteData: ContextMenuCommandExecuteData, precondition: PreconditionModule) => Awaitable<Precondition.Result>;
-export type MessageCommandPreconditionExecuteFunction = (messageCommandExecuteData: MessageCommandExecuteData, precondition: PreconditionModule) => Awaitable<Precondition.Result>;
+export type PreconditionResolvable = PreconditionData | JSONEncodable<PreconditionData>;
+
+export type SlashCommandPreconditionExecuteFunction = (slashCommandExecuteData: SlashCommandExecuteData, precondition: Precondition) => Awaitable<Precondition.Result>;
+export type ContextMenuCommandPreconditionExecuteFunction = (contextMenuCommandExecuteData: ContextMenuCommandExecuteData, precondition: Precondition) => Awaitable<Precondition.Result>;
+export type MessageCommandPreconditionExecuteFunction = (messageCommandExecuteData: MessageCommandExecuteData, precondition: Precondition) => Awaitable<Precondition.Result>;
 
 // Any types
 
@@ -113,7 +113,4 @@ export type AnyMessageCommandOptionResolvable = MessageCommandStringOptionResolv
 export type AnyCommandModule = SlashCommandModule | ContextMenuCommandModule | MessageCommandModule
 export type AnyCommandModuleData = SlashCommandModuleData | ContextMenuCommandModuleData | MessageCommandModuleData
 export type AnyCommandModuleResolvable = SlashCommandModuleResolvable | ContextMenuCommandModuleResolvable | MessageCommandModuleResolvable
-export type AnyVortexusModule = AnyCommandModule | PreconditionModule
-export type AnyVortexusModuleData = AnyCommandModuleData | PreconditionModuleData
-export type AnyVortexusModuleResolvable = AnyCommandModuleResolvable | PreconditionModuleResolvable
 export type AnyPreconditionExecuteFunction = SlashCommandPreconditionExecuteFunction | ContextMenuCommandPreconditionExecuteFunction | MessageCommandPreconditionExecuteFunction

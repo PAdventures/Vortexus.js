@@ -1,6 +1,6 @@
 import { PermissionResolvable, RESTPostAPIChatInputApplicationCommandsJSONBody, RESTPostAPIContextMenuApplicationCommandsJSONBody } from "discord.js";
-import { CommandType, ModuleType } from "../../types/constants.js";
-import { AnyCommandBuilder, AnyCommandExecuteFunction, AnyCommandModuleData } from "../../types/structures.js";
+import { CommandType } from "../../types/constants.js";
+import { AnyCommandBuilder, AnyCommandExecuteFunction, AnyCommandModuleData, PreconditionResolvable } from "../../types/structures.js";
 import { BaseModule, BaseModuleData } from "./BaseModule.js";
 import { SlashCommandModule } from "./SlashCommandModule.js";
 import { ContextMenuCommandModule } from './ContextMenuCommandModule.js';
@@ -13,17 +13,18 @@ export interface CommandModuleData extends BaseModuleData {
     required_bot_permission?: PermissionResolvable;
     required_member_permissions?: PermissionResolvable;
     cooldown?: number;
-    execute: AnyCommandExecuteFunction
+    execute: AnyCommandExecuteFunction;
+    preconditions?: PreconditionResolvable[];
 }
 
 export abstract class CommandModule extends BaseModule implements CommandModuleData {
-    public readonly module_type: ModuleType.CommandModule = ModuleType.CommandModule;
     public abstract readonly command_type: CommandType;
     public abstract data: AnyCommandBuilder;
     public required_bot_permission?: PermissionResolvable;
     public required_member_permissions?: PermissionResolvable;
     public cooldown?: number;
     public abstract execute: AnyCommandExecuteFunction;
+    public preconditions?: PreconditionResolvable[];
 
     public isSlashCommandModule(): this is SlashCommandModule {
         return this.command_type === CommandType.SlashCommand
