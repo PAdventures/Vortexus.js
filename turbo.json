@@ -3,7 +3,7 @@
     "tasks": {
         "build": {
             "dependsOn": ["^build"],
-            "outputs": ["dist/**"],
+            "outputs": ["dist/**", "build/**"],
             "inputs": ["scr/**/*", "package.json", "README.md", "tsconfig.json"]
         },
         "vortexus.js#build": {
