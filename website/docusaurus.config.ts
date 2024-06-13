@@ -160,7 +160,7 @@ const config: Config = {
 					items: [
 						{
 							label: 'Discord',
-							href: 'https://discordapp.com/invite/docusaurus',
+							href: 'https://discord.gg/Ek4PrXGWUq',
 						},
 					],
 				},
