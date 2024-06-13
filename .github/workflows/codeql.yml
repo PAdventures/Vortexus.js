@@ -21,6 +21,7 @@ on:
       - 'package.json'
       - 'packages/**/package.json'
       - 'package-lock.json'
+      - 'website/**'
   pull_request:
     branches: [ "main" ]
     paths-ignore:
