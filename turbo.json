@@ -9,6 +9,9 @@
         "vortexus.js#build": {
             "dependsOn": ["@vortexus.js/core#build"]
         },
+        "website#build": {
+            "dependsOn": ["@vortexus.js/core#build", "vortexus.js#build", "@vortexus.js/utility#build"]
+        },
         "flush": {
             "inputs": ["dist/**"]
         }
