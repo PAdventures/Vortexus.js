@@ -1,16 +1,16 @@
 <h1 align="center">
-    <img src="./images/Vortexus.js Banner White.svg" alt="Vortexus.js White Banner" width="75%"">
+    <img src="./images/Vortexus.js Banner White.svg" alt="Vortexus.js White Banner" width="75%"></img>
 </h1>
 
 <h3 align="center">
     <a href="https://github.com/github/docs/actions/workflows/codeql.yml">
-        <img src="https://github.com/github/docs/actions/workflows/codeql.yml/badge.svg">
+        <img src="https://github.com/github/docs/actions/workflows/codeql.yml/badge.svg"></img>
     </a>
     <a href="https://www.codefactor.io/repository/github/padventures/vortexus.js">
-        <img src="https://www.codefactor.io/repository/github/padventures/vortexus.js/badge" alt="CodeFactor" />
+        <img src="https://www.codefactor.io/repository/github/padventures/vortexus.js/badge" alt="CodeFactor"></img>
     </a>
     <a href="https://discord.gg/Ek4PrXGWUq">
-        <img src="https://img.shields.io/discord/1247615562729652234?color=5865F2&logo=discord&logoColor=white">
+        <img src="https://img.shields.io/discord/1247615562729652234?color=5865F2&logo=discord&logoColor=white"></img>
     </a>
 </h3>
 
