@@ -1,13 +1,18 @@
-import { CacheType, ChatInputCommandInteraction, ContextMenuCommandBuilder, SlashCommandBuilder, ContextMenuCommandInteraction, Message, Awaitable, JSONEncodable, ClientOptions } from "discord.js";
+import { CacheType, ChatInputCommandInteraction, ContextMenuCommandBuilder, SlashCommandBuilder, ContextMenuCommandInteraction, Message, Awaitable, JSONEncodable, ClientOptions, AutocompleteInteraction, ButtonInteraction, Interaction, AnySelectMenuInteraction, ModalSubmitInteraction } from "discord.js";
 import { MessageCommandBuilder } from "../classes/builders/MessageCommandBuilder.js";
 import { CommandType } from "./constants.js";
 import { VortexusClient } from "../classes/structures/VortexusClient.js";
 import { MessageCommandBooleanOptionBuilder, MessageCommandBooleanOptionBuilderData, MessageCommandChannelOptionBuilder, MessageCommandChannelOptionBuilderData, MessageCommandIntegerOptionBuilder, MessageCommandIntegerOptionBuilderData, MessageCommandNumberOptionBuilder, MessageCommandNumberOptionBuilderData, MessageCommandRoleOptionBuilder, MessageCommandRoleOptionBuilderData, MessageCommandStringOptionBuilder, MessageCommandStringOptionBuilderData, MessageCommandUserOptionBuilder, MessageCommandUserOptionBuilderData } from "../classes/builders/MessageCommandOptionBuilders.js";
-import { SlashCommandModule, SlashCommandModuleData } from "../classes/modules/SlashCommandModule.js";
-import { ContextMenuCommandModule, ContextMenuCommandModuleData } from '../classes/modules/ContextMenuCommandModule.js';
-import { MessageCommandModule, MessageCommandModuleData } from "../classes/modules/MessageCommandModule.js";
+import { SlashCommandModule, SlashCommandModuleData } from "../classes/modules/commands/SlashCommandModule.js";
+import { ContextMenuCommandModule, ContextMenuCommandModuleData } from '../classes/modules/commands/ContextMenuCommandModule.js';
+import { MessageCommandModule, MessageCommandModuleData } from "../classes/modules/commands/MessageCommandModule.js";
 import { CooldownCacheSweeperOptions } from "../classes/managers/CooldownManager.js";
 import { Precondition, PreconditionData } from "../classes/structures/Precondition.js";
+import { InteractionEventModule, InteractionEventModuleData } from "../classes/modules/events/InteractionEventModule.js";
+import { AutocompleteEventModule, AutocompleteEventModuleData } from "../classes/modules/events/AutocompleteEventModule.js";
+import { ButtonEventModule, ButtonEventModuleData } from "../classes/modules/events/ButtonEventModule.js";
+import { ModalSubmitEventModule, ModalSubmitEventModuleData } from "../classes/modules/events/ModalSubmitEventModule.js";
+import { SelectMenuEventModule, SelectMenuEventModuleData } from "../classes/modules/events/SelectMenuEventModule.js";
 
 // Client Config
 
@@ -85,6 +90,7 @@ export type MessageCommandPreconditionExecuteFunction = (messageCommandExecuteDa
 
 // Any types
 
+export type AnyEventModuleInteraction = AutocompleteInteraction | ButtonInteraction | AnySelectMenuInteraction | ModalSubmitInteraction
 export type AnyCommandBuilder = SlashCommandBuilder | ContextMenuCommandBuilder | MessageCommandBuilder
 export type AnyCommandBuilderResolvable = AnyCommandBuilder | JSONEncodable<AnyCommandBuilder>
 export type AnyCommandExecuteData = SlashCommandExecuteData | ContextMenuCommandExecuteData | MessageCommandExecuteData
@@ -113,4 +119,8 @@ export type AnyMessageCommandOptionResolvable = MessageCommandStringOptionResolv
 export type AnyCommandModule = SlashCommandModule | ContextMenuCommandModule | MessageCommandModule
 export type AnyCommandModuleData = SlashCommandModuleData | ContextMenuCommandModuleData | MessageCommandModuleData
 export type AnyCommandModuleResolvable = SlashCommandModuleResolvable | ContextMenuCommandModuleResolvable | MessageCommandModuleResolvable
+export type AnyEventModule = InteractionEventModule | AutocompleteEventModule | ButtonEventModule | ModalSubmitEventModule | SelectMenuEventModule
+export type AnyEventModuleData = InteractionEventModuleData | AutocompleteEventModuleData | ButtonEventModuleData | ModalSubmitEventModuleData | SelectMenuEventModuleData
 export type AnyPreconditionExecuteFunction = SlashCommandPreconditionExecuteFunction | ContextMenuCommandPreconditionExecuteFunction | MessageCommandPreconditionExecuteFunction
+export type AnyVortexusModule = AnyCommandModule | AnyEventModule
+export type AnyVortexusModuleData = AnyCommandModuleData | AnyEventModuleData
