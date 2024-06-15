@@ -29,3 +29,16 @@ export enum PreconditionResultType {
     Pass,
     Fail
 }
+
+export enum ModuleType {
+    Command,
+    Event
+}
+
+export enum EventInteractionType {
+    InteractionCreate,
+    SelectMenu,
+    AutoComplete,
+    Button,
+    ModalSubmit
+}

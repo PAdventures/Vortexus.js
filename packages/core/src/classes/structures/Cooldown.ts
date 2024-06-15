@@ -44,6 +44,10 @@ export class Cooldown implements CooldownData {
         return undefined
     }
 
+    get customId(): string | undefined {
+        return this.isEventCooldown() ? this.commandName.substring(5) : undefined
+    }
+
     constructor(data: CooldownData, readonly manager: CooldownManager) {
         this.id = generateId();
         this.userId = data.userId;
@@ -55,6 +59,10 @@ export class Cooldown implements CooldownData {
 
     public hasEnded(): boolean {
         return this.endsAt.getTime() <= Date.now()
+    }
+
+    public isEventCooldown(): boolean {
+        return this.commandName.startsWith("event-")
     }
 
     public toJSON(): CooldownData & { id: string } {

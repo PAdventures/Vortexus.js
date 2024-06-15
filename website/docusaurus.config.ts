@@ -90,10 +90,7 @@ const config: Config = {
                     remarkPlugins: [convertNpmToPackageManagers, ts2esm2cjs],
                     showLastUpdateTime: true,
                     showLastUpdateAuthor: true,
-					// Please change this to your repo.
-					// Remove this to remove the "edit this page" links.
-					editUrl:
-						'https://github.com/PAdventures/Vortexus.js/edit/main/website',
+					editUrl: 'https://github.com/PAdventures/Vortexus.js/edit/website/website',
 				},
 				blog: false,
 				theme: {
@@ -160,7 +157,7 @@ const config: Config = {
 					items: [
 						{
 							label: 'Discord',
-							href: 'https://discordapp.com/invite/docusaurus',
+							href: 'https://discord.gg/Ek4PrXGWUq',
 						},
 					],
 				},
@@ -174,6 +171,7 @@ const config: Config = {
 					],
 				},
 			],
+            copyright: `Copyright © ${new Date().getFullYear()} Vortexus.js, PAdventures`
 		},
 		prism: {
 			theme: prismThemes.github,

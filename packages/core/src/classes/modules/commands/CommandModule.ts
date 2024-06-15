@@ -1,11 +1,11 @@
 import { PermissionResolvable, RESTPostAPIChatInputApplicationCommandsJSONBody, RESTPostAPIContextMenuApplicationCommandsJSONBody } from "discord.js";
-import { CommandType } from "../../types/constants.js";
-import { AnyCommandBuilder, AnyCommandExecuteFunction, AnyCommandModuleData, PreconditionResolvable } from "../../types/structures.js";
-import { BaseModule, BaseModuleData } from "./BaseModule.js";
+import { CommandType, ModuleType } from "../../../types/constants.js";
+import { AnyCommandBuilder, AnyCommandExecuteFunction, AnyCommandModuleData, PreconditionResolvable } from "../../../types/structures.js";
+import { BaseModule, BaseModuleData } from "../BaseModule.js";
 import { SlashCommandModule } from "./SlashCommandModule.js";
 import { ContextMenuCommandModule } from './ContextMenuCommandModule.js';
 import { MessageCommandModule } from "./MessageCommandModule.js";
-import { MessageCommandBuilderData } from "../builders/MessageCommandBuilder.js";
+import { MessageCommandBuilderData } from "../../builders/MessageCommandBuilder.js";
 
 export interface CommandModuleData extends BaseModuleData {
     command_type: CommandType;
@@ -18,6 +18,7 @@ export interface CommandModuleData extends BaseModuleData {
 }
 
 export abstract class CommandModule extends BaseModule implements CommandModuleData {
+    public readonly module_type: ModuleType.Command = ModuleType.Command;
     public abstract readonly command_type: CommandType;
     public abstract data: AnyCommandBuilder;
     public required_bot_permission?: PermissionResolvable;
@@ -40,7 +41,7 @@ export abstract class CommandModule extends BaseModule implements CommandModuleD
 
     public toJSON(): Omit<AnyCommandModuleData, "command_type" | "data"> & { command_type: CommandType, data: RESTPostAPIChatInputApplicationCommandsJSONBody | RESTPostAPIContextMenuApplicationCommandsJSONBody | MessageCommandBuilderData } {
         return {
-            ...super.toJSON(),
+            ...super._toJSON(),
             command_type: this.command_type,
             data: this.data.toJSON(),
             cooldown: this.cooldown,
