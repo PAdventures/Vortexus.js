@@ -11,7 +11,7 @@
         "website"
     ],
     "devDependencies": {
-        "@types/node": "^20.14.0",
+        "@types/node": "^20.14.5",
         "rimraf": "^5.0.7",
         "turbo": "^2.0.4",
         "typescript": "^5.4.5"
