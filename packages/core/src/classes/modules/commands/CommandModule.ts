@@ -10,7 +10,7 @@ import { MessageCommandBuilderData } from "../../builders/MessageCommandBuilder.
 export interface CommandModuleData extends BaseModuleData {
     command_type: CommandType;
     data: AnyCommandBuilder
-    required_bot_permission?: PermissionResolvable;
+    required_client_permission?: PermissionResolvable;
     required_member_permissions?: PermissionResolvable;
     cooldown?: number;
     execute: AnyCommandExecuteFunction;
@@ -21,7 +21,7 @@ export abstract class CommandModule extends BaseModule implements CommandModuleD
     public readonly module_type: ModuleType.Command = ModuleType.Command;
     public abstract readonly command_type: CommandType;
     public abstract data: AnyCommandBuilder;
-    public required_bot_permission?: PermissionResolvable;
+    public required_client_permission?: PermissionResolvable;
     public required_member_permissions?: PermissionResolvable;
     public cooldown?: number;
     public abstract execute: AnyCommandExecuteFunction;
@@ -45,7 +45,7 @@ export abstract class CommandModule extends BaseModule implements CommandModuleD
             command_type: this.command_type,
             data: this.data.toJSON(),
             cooldown: this.cooldown,
-            required_bot_permission: this.required_bot_permission,
+            required_client_permission: this.required_client_permission,
             required_member_permissions: this.required_member_permissions,
             execute: this.execute
         }
