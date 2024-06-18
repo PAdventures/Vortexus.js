@@ -1,19 +1,17 @@
 import { Awaitable, ButtonInteraction } from "discord.js";
 import { EventInteractionType } from "../../../types/constants.js";
-import { BaseEventModule, BaseEventModuleData } from "./BaseEventModule.js";
+import { BaseInteractionEventModuleData, BaseInteractionEventModule } from "./BaseInteractionEventModule.js";
 
-export interface ButtonEventModuleData extends BaseEventModuleData {
+export interface ButtonEventModuleData extends BaseInteractionEventModuleData {
     interaction_type: EventInteractionType.Button;
     execute: (interaction: ButtonInteraction) => Awaitable<void>;
     customId: string;
-    cooldown?: number;
 }
 
-export abstract class ButtonEventModule extends BaseEventModule implements ButtonEventModuleData {
-    public abstract readonly customId: string;
+export abstract class ButtonEventModule extends BaseInteractionEventModule implements ButtonEventModuleData {
     public readonly interaction_type: EventInteractionType.Button = EventInteractionType.Button;
     public abstract execute: (interaction: ButtonInteraction) => Awaitable<void>;
-    public cooldown?: number | undefined;
+    public abstract customId: string;
 
     public toJSON(): Omit<ButtonEventModuleData, 'interaction_type'> & { interaction_type: EventInteractionType.Button } {
         return {
@@ -21,7 +19,6 @@ export abstract class ButtonEventModule extends BaseEventModule implements Butto
             interaction_type: this.interaction_type,
             execute: this.execute,
             customId: this.customId,
-            cooldown: this.cooldown
         }
     }
 }
