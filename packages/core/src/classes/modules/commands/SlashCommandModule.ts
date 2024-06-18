@@ -1,7 +1,7 @@
 import { SlashCommandBuilder } from "discord.js";
-import { CommandType } from "../../types/constants.js";
+import { CommandType } from "../../../types/constants.js";
 import { CommandModule, CommandModuleData } from "./CommandModule.js";
-import { SlashCommandExecuteFunction } from "../../types/structures.js";
+import { SlashCommandExecuteFunction } from "../../../types/structures.js";
 
 export interface SlashCommandModuleData extends CommandModuleData {
     command_type: CommandType.SlashCommand;

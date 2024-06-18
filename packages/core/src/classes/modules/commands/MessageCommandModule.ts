@@ -1,6 +1,6 @@
-import { CommandType } from "../../types/constants.js";
-import { MessageCommandExecuteFunction } from "../../types/structures.js";
-import { MessageCommandBuilder } from "../builders/MessageCommandBuilder.js";
+import { CommandType } from "../../../types/constants.js";
+import { MessageCommandExecuteFunction } from "../../../types/structures.js";
+import { MessageCommandBuilder } from "../../builders/MessageCommandBuilder.js";
 import { CommandModule, CommandModuleData } from "./CommandModule.js";
 
 export interface MessageCommandModuleData extends CommandModuleData {
