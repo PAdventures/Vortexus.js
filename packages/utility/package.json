@@ -2,7 +2,7 @@
     "name": "@vortexus.js/utility",
     "description": "Utility items to be used by Vortexus",
     "license": "GPL-3.0",
-    "version": "1.0.0",
+    "version": "0.0.0",
     "module": ".dist/index.js",
     "types": ".dist/index.d.ts",
     "type": "module",
