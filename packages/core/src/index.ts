@@ -15,12 +15,15 @@ export * from "./classes/modules/commands/ContextMenuCommandModule.js";
 export * from "./classes/modules/commands/MessageCommandModule.js";
 export * from "./classes/modules/commands/SlashCommandModule.js";
 export * from "./classes/modules/events/AutocompleteEventModule.js";
-export * from "./classes/modules/events/BaseEventModule.js";
+export * from "./classes/modules/events/BaseInteractionEventModule.js";
 export * from "./classes/modules/events/ButtonEventModule.js";
-export * from "./classes/modules/events/InteractionEventModule.js";
 export * from "./classes/modules/events/ModalSubmitEventModule.js";
 export * from "./classes/modules/events/SelectMenuEventModule.js";
+export * from "./classes/modules/events/EventModule.js"
 
 export * from "./classes/structures/Cooldown.js";
 export * from "./classes/structures/Precondition.js";
 export * from "./classes/structures/VortexusClient.js";
+
+export * from "./classes/preconditions/CooldownPrecondition.js"
+export * from "./classes/preconditions/InGuild.js"
