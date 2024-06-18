@@ -1,8 +1,7 @@
 import { generateId } from "@vortexus.js/utility"
 import { ModuleType } from "../../types/constants.js";
-import { CommandModule } from "./commands/CommandModule.js";
-import { BaseEventModule } from "./events/BaseEventModule.js";
-import { AnyCommandModule, AnyEventModule } from "../../types/structures.js";
+import { AnyCommandModule, AnyInteractionEventModule } from "../../types/structures.js";
+import { EventModule } from "./events/EventModule.js";
 
 export interface BaseModuleData {
     id: string;
@@ -19,8 +18,12 @@ export abstract class BaseModule implements BaseModuleData {
         return this.module_type === ModuleType.Command;
     }
 
-    public isEventModule(): this is AnyEventModule {
+    public isEventModule(): this is EventModule {
         return this.module_type === ModuleType.Event;
+    }
+
+    public isInteractionEventModule(): this is AnyInteractionEventModule {
+        return this.module_type === ModuleType.InteractionEvent
     }
 
     protected _toJSON(): BaseModuleData {
