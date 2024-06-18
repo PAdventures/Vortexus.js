@@ -1,0 +1,145 @@
+---
+sidebar_position: 0
+title: Installation & Setup
+---
+
+import ExternalLink from "@theme/Icon/ExternalLink"
+import Tabs from "@theme/Tabs"
+import TabItem from "@theme/TabItem"
+
+Currently you can only setup Vortexus.js manually. Below you will be shown how to install the needed packages and how setup a basic bot.
+
+To use Vortexus.js, you'll need to install [Node.js](https://nodejs.org)<ExternalLink />
+
+:::tip
+Once you've installed Node.js, or to check if it was installed already, run `node -v` in your terminal and see if you get a version output
+:::
+:::danger
+You need at least Node.js version 18.x or higher to use Vortexus.js
+:::
+
+### Installing Vortexus.js
+
+Navigate to the directory you want your project to be in and run the following commands.
+```bash npm2yarn2pnpm
+npm install vortexus.js
+npm install @vortexus.js/core
+```
+
+### Installing Discord.js
+
+Now you need to install discord.js
+```bash npm2yarn2pnpm
+npm install discord.js
+```
+
+## Basic setup
+
+Once you've installed everything needed, you can now setup a basic discord app.
+
+Before you start this section, you will need to head on over to the developer portal and create your application.
+If you've already done that and added your app to servers, you can move on to the next step.
+Otherwise please read the [setting up a bot application](https://discordjs.guide/preparations/setting-up-a-bot-application.html#setting-up-a-bot-application)<ExternalLink /> &nbsp;
+and the [adding your bot to servers](https://discordjs.guide/preparations/adding-your-bot-to-servers.html#adding-your-bot-to-servers)<ExternalLink /> &nbsp; pages from the Discord.js guide website
+
+### Environment Variables
+
+In the root of your project, create a `.env` file and add the following
+```env showLineNumbers
+TOKEN = "REPLACE_WITH_YOUR_DISCORD_APP_TOKEN"
+```
+Make sure you replace `REPLACE_WITH_YOUR_DISCORD_APP_TOKEN` with the actual token of your app.
+:::danger
+Never share your token with **anyone**!
+:::
+
+### Vortexus.js Configuration file
+
+:::warning[TypeScript Notice]
+This guide assumes you are familiar with TypeScript and already have the complier working.
+
+Check the TypeScript setup guide to properly setup Vortexus.js
+:::
+Now create a file in the **root** of your project directory and add the following
+<Tabs>
+    <TabItem value="js" label="JavaScript">
+        ```javascript title="You will need to name this file: vortexus.js" showLineNumbers
+        import { GatewayIntentBits } from "discord.js"
+
+        export const config = {
+            token: process.env.TOKEN ?? "",
+            client: {
+                intents: [
+                    GatewayIntentBits.Guilds,
+                    GatewayIntentBits.GuildMembers,
+                    GatewayIntentBits.GuildMessages,
+                    GatewayIntentBits.MessageContent
+                ]
+            }
+        }
+        ```
+    </TabItem>
+    <TabItem value="ts" label="TypeScript">
+        ```javascript title="For TypeScript you need to use a JavaScript file: vortexus.js"
+        import { GatewayIntentBits } from "discord.js"
+
+        export const config = {
+            token: process.env.TOKEN ?? "",
+            client: {
+                intents: [
+                    GatewayIntentBits.Guilds,
+                    GatewayIntentBits.GuildMembers,
+                    GatewayIntentBits.GuildMessages,
+                    GatewayIntentBits.MessageContent
+                ]
+            }
+        }
+        ```
+    </TabItem>
+</Tabs>
+:::danger
+Do not add your Discord app token directly to the configuration. Please use the `.env` file
+
+You will need to head over to the [discord developer portal](https://discord.com/developers/applications)<ExternalLink /> &nbsp;
+and enable the Message Content Intent under the Bot tab
+:::
+
+Now your project should look similar to this
+```
+myapp/
+├── node_modules/
+├── package.json
+├── package-lock.json
+└── vortexus.js
+```
+:::note
+This may look different to your depending on your package manager or if you are using TypeScript.
+Here is how the JavaScript, NPM project should look like
+:::
+
+## Running your app
+
+Now that you've setup the absolute basic discord app, you can run it by using the Vortexus.js CLI.
+To do that, first we need to quickly add a script. So head on over to `package.json` and add the following line
+
+```json title="package.json" showLineNumbers
+{
+    // project details
+    "scripts": {
+        "dev": "vortexus.js dev"
+    }
+}
+```
+
+Now finally, run the following command in your terminal
+```bash npm2yarn2pnpm
+npm run dev
+```
+
+Head on over to Discord and see your online discord app.
+
+:::tip
+Can't see your app online after following this guide? Ask a question in our [Discord server](https://discord.gg/Ek4PrXGWUq)<ExternalLink /> &nbsp;or [create an issue in the github repo](https://github.com/PAdventures/Vortexus.js/issues/new/choose)<ExternalLink />
+:::
+
+That's it! You've successfully created your first Vortexus.js discord app!

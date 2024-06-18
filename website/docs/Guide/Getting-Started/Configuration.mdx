@@ -1,0 +1,268 @@
+---
+sidebar_position: 1
+title: Configuration
+---
+
+import ExternalLink from "@theme/Icon/ExternalLink"
+import Tabs from "@theme/Tabs"
+import TabItem from "@theme/TabItem"
+import MessageCommandPrefixArgsDiscordMessages from "@site/src/components/DiscordMessages/MessageCommandPrefixArgs.tsx"
+
+Modifying your configuration file to meet your needs is a necessary step in your development experience.
+If you remember from the installation guide, the Vortexus.js configuration lives in a `vortexus.js` file.
+
+## Configuration File
+
+The configuration file takes many options that are needed for any complex enough discord app. Here is what they main options are.
+
+```javascript title="vortexus.js" showLineNumbers
+export const config = {
+    token: process.env.TOKEN ?? "",
+    client: {},
+    cooldowns: {},
+    commands: {},
+    modules: {},
+    logger: {}
+}
+```
+
+If the specified version doesn't exist, or if your core version is lower than the specified version, Vortexus.js will throw an error
+* `token` - The Discord Bot application token to login
+* `client` - The [discord.js client options](https://discord.js.org/docs/packages/discord.js/14.15.3/ClientOptions:Interface)<ExternalLink /> &nbsp;used when logging in
+* `cooldowns` - The options used to configure the built-in Vortexus.js cooldown handler
+* `commands` - The options for command registering and management
+* `modules` - The options used to let Vortexus.js know where your modules are held
+* `logger` - The options for configuring the Vortexus.js logger
+
+### Token
+
+The token option is where your discord bot application token will be needed.
+It is **highly recommended** to store this value in a `.env` file and access it using `process.env.TOKEN`.
+Here is an example.
+
+<Tabs>
+    <TabItem value="env" label="Env File">
+        ```env title=".env" showLineNumbers
+        TOKEN = "abc"
+        ```
+    </TabItem>
+    <TabItem value="config" label="Config File">
+        ```javascript title="vortexus.js" showLineNumbers
+        export const config = {
+            token: process.env.TOKEN ?? "" // Output: "abc"
+        }
+        ```
+    </TabItem>
+</Tabs>
+
+:::danger
+If you are using git. You will need to add `.env` inside the `.gitignore` file to prevent it from being pushed to your repository.
+It doesn't matter if the repository is public or private, it is a very bad idea to push the `.env` file to github
+:::
+
+### Cooldowns
+
+The cooldowns option is used to configure the cooldown handler which is built-into Vortexus.js.
+Here are all the options you can use inside the cooldowns options.
+
+```javascript title="vortexus.js" showLineNumbers
+export const config = {
+    cooldowns: {
+        enable: true,
+        default_ms: 1000,
+        sweeper: {
+            sweepFrequencyMs: 1000 * 60 * 60,
+            filter: (cooldown) => true
+        }
+    }
+}
+```
+
+* `enable` - Determines weather or not the cooldown handler should be on
+* `default_ms` - The default cooldown for a command if not specified in the command module
+* `sweeper` - The options to manage the cache that stores all cooldowns
+    * `sweepFrequencyMs` - How often the cache should be cleared of old or completed cooldowns
+    * `filter` - A function that return a boolean where if returned true, the sweeper can clear that cooldown if it is completed,
+    and if false, then the sweeper should never delete the cooldown
+
+Here is an example of the `filter`
+
+```javascript title="vortexus.js" showLineNumbers
+export const config = {
+    cooldowns: {
+        enable: true,
+        sweeper: {
+            filter: (cooldown) => {
+                if (cooldown?.guildId === process.env.TEST_GUILD) {
+                    return false
+                }
+                return true
+            }
+        }
+    }
+}
+```
+
+### Commands
+
+Even a basic discord app needs commands, therefore, you will definitely been needing to use this configuration.
+Below are all the options the commands option takes
+
+```javascript title="vortexus.js" showLineNumbers
+export const config = {
+    commands: {
+        register: {
+            globally: true,
+            guilds: []
+        },
+        message_commands: {
+            prefix: "!",
+            arg_separator: " "
+        }
+    }
+}
+```
+
+* `register` - This manages the Application Commands that are registered globally or to specific guilds
+    * `globally` - Register the commands to all guilds
+    * `guilds` - An array containing the guilds that will have the commands registered too
+* `message_commands` - Commands that are triggered by sending a message in a channel
+    * `prefix` - The starter character that will trigger Vortexus.js to validate the message
+    * `arg_separator` - The character that will separate each argument for the command
+
+Example usage of the Message Commands
+
+<Tabs>
+    <TabItem value="config" label="Config File">
+        ```javascript title="vortexus.js" showLineNumbers
+        export const config = {
+            commands: {
+                message_commands: {
+                    prefix: "!",
+                    arg_separator: ";"
+                }
+            }
+        }
+        ```
+    </TabItem>
+    <TabItem value="discord_channel" label="Discord channel">
+        <MessageCommandPrefixArgsDiscordMessages />
+    </TabItem>
+</Tabs>
+
+### Modules
+
+Vortexus.js uses a module system where your module file will contain a class of a specific module template.
+Here are the options that you can use
+
+```javascript title="vortexus.js" showLineNumbers
+export const config = {
+    modules: {
+        dirs: [],
+        ignore: []
+    }
+}
+```
+
+* `dirs` - An array containing blob string paths of the directory or directories where your modules are located
+* `ignore`: - An array containing blob strings of file or directory names to ignore
+
+Example usage in a project
+
+<Tabs>
+    <TabItem value="structure" label="Project Structure">
+        ```
+        myapp/
+        ├── node_modules/
+        ├── package.json
+        ├── package-lock.json
+        ├── commands/
+            └── test.js
+        ├── events/
+        ├── preconditions/
+        └── vortexus.js
+        ```
+    </TabItem>
+    <TabItem value="config" label="Config File">
+    ```javascript title="vortexus.js" showLineNumbers
+    export const config = {
+        modules: {
+            dirs: ["./commands", "./events"],
+            ignore: ["test.js", "preconditions*"]
+        }
+    }
+    ```
+    </TabItem>
+</Tabs>
+
+### Logger
+
+The logger is a small but powerful tool that you can utilise. Here are all the options to can configure.
+
+```javascript title="vortexus.js" showLineNumbers
+export const config = {
+    logger: {
+        enable: true,
+        debugs: false,
+        pretty_print: false,
+        file_stream: {
+            enable: true,
+            dir: './logs',
+            file: 'current.log',
+        }
+    }
+}
+```
+
+* `enable` - Determines weather or not the logger is enabled
+* `debugs` - The logger will output debug messages for more insight
+* `pretty_print` - Logger outputs pretty messages
+* `file_stream` - The options for logging message in a file as well as your console
+    * `enable` - Determines weather or not the logger should write messages to a file
+    * `dir` - The directory where the current and old logs live
+    * `file` - The name of the current log being used to write messages too
+
+Example usage of the logger.
+
+<Tabs>
+    <TabItem value="config" label="Config File">
+        ```javascript title="vortexus.js" showLineNumbers
+        export const config = {
+            logger: {
+                enable: true,
+                debugs: true,
+                pretty_print: true,
+                file_stream: {
+                    enable: true,
+                    dir: './logs',
+                    file: 'current.log',
+                }
+            }
+        }
+        ```
+    </TabItem>
+    <TabItem value="terminal" label="Terminal">
+        ```bash title="Terminal" showLineNumbers
+        [19:07:00 INFO] Starting Vortexus.js
+        [19:07:00 DEBUG] Started Vortexus.js
+        [19:07:00 DEBUG] Logging into Discord
+        [19:07:00 INFO] Logged into Discord as Vortexus.js#1970
+        ```
+    </TabItem>
+    <TabItem value="file" label="File Stream">
+        ```bash title="/logs/current.log" showLineNumbers
+        [19:07:00 INFO] Starting Vortexus.js
+        [19:07:00 INFO] Logged into Discord as Vortexus.js#1970
+        ```
+    </TabItem>
+</Tabs>
+
+:::note
+Debug messages **are not** written to the log files. They will only appear in your console
+:::
+
+## Testing
+
+Testing your discord app in a danger-free environment is a common need.
+You can create a second config file where you can configure it to your testing needs.
+This test config file must be named `vortexus.test.js` as Vortexus.js will look for this file when you run the CLI test command
