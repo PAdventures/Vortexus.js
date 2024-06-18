@@ -20,7 +20,7 @@
         "@mdx-js/react": "^3.0.0",
         "@sapphire/docusaurus-plugin-npm2yarn2pnpm": "^2.0.2",
         "@sapphire/docusaurus-plugin-ts2esm2cjs": "^2.0.2",
-        "@skyra/discord-components-react": "^4.0.0-alpha.18",
+        "@skyra/discord-components-react": "4.0.0-alpha.18",
         "clsx": "^2.0.0",
         "prism-react-renderer": "^2.3.0",
         "react": "^18.0.0",
