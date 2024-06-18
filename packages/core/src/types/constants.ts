@@ -32,7 +32,8 @@ export enum PreconditionResultType {
 
 export enum ModuleType {
     Command,
-    Event
+    Event,
+    InteractionEvent
 }
 
 export enum EventInteractionType {
