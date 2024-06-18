@@ -7,7 +7,7 @@ import EventModulesEcho from "@site/src/components/DiscordMessages/EventModulesE
 
 Receiving events to your app and handling them is an important aspect of any discord app.
 Therefore, we obviously made it easier for you to use them.
-Similar to [command modules](../Getting-Started/Command-Modules.mdx), events use the module system to handle events.
+Similar to [command modules](/Guide/Getting-Started/Command-Modules.mdx), events use the module system to handle events.
 
 In this guide, you will learn how to setup a basic event module to listen for an `interactionCreate` event
 
@@ -27,8 +27,8 @@ export class ExampleEvent extends EventModule {
 export default new ExampleEvent()
 ```
 
-* `id` - The unique identifier for the module, explained in more detail [here](../Getting-Started/Command-Modules.mdx#id)
-* `versions` - Minimum version needed to run the module, explained in more detail [here](../Getting-Started/Command-Modules.mdx#versions)
+* `id` - The unique identifier for the module, explained in more detail [here](/Guide/Getting-Started/Command-Modules.mdx#id)
+* `versions` - Minimum version needed to run the module, explained in more detail [here](/Guide/Getting-Started/Command-Modules.mdx#versions)
 * `execute` - The function where the client will be passed so you can listen for an event
 
 ### The execute function
