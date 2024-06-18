@@ -10,13 +10,13 @@ import CommandModulesRequiredMemberPerms from "@site/src/components/DiscordMessa
 import CommandModulesCooldown from "@site/src/components/DiscordMessages/CommandModulesCooldown.tsx"
 import SlashCommandPing from "@site/src/components/DiscordMessages/SlashCommandPing.tsx"
 
-As stated on the [configuration page](./Configuration.mdx#modules), Vortexus.js uses a module system to handle command (and event) execution for you.
+As stated on the [configuration page](Configuration.mdx#modules), Vortexus.js uses a module system to handle command (and event) execution for you.
 Why do this and not let you handle it yourself? Well, Vortexus.js is a complex framework made to be simple for developers out of the box,
 therefore forcing you to manually handle commands and events will lose the meaning behind this phrase.
 Note that you do have the ability to handle commands manually, but, doing this using the Vortexus.js structure will be slightly difficult.
 
 :::tip
-Looking for the event modules guide? Check out [this page!](../Events/Basics.mdx)
+Looking for the event modules guide? Check out [this page!](/Guide/Events/Basics.mdx)
 :::
 
 In this guide, you will learn how to properly use **command** modules and utilise their functionality to match your expectations as much as possible.
@@ -58,8 +58,8 @@ Furthermore, your command modules should look much more sophisticated that this 
 * `required_member_permissions` - The needed permissions the member who ran to command needs to execute the command
 * `cooldown` - The time a member needs to wait to re-run the command, **in milliseconds/ms**
 * `execute` - The function ran when the command is executed
-* `preconditions` - The ids (or data) of preconditions that will be ran **before** the `execute` function is ran. Learn more on the [preconditions page](../Advanced-Features/Preconditions.mdx)
-* `termination` - The function that is ran when an error occurs. Learn more on the [terminations page](../Advanced-Features/Terminations.mdx)
+* `preconditions` - The ids (or data) of preconditions that will be ran **before** the `execute` function is ran. Learn more on the [preconditions page](/Guide/Advanced-Features/Preconditions.mdx)
+* `termination` - The function that is ran when an error occurs. Learn more on the [terminations page](/Guide/Advanced-Features/Terminations.mdx)
 
 #### Id
 
