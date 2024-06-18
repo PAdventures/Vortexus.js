@@ -8,9 +8,10 @@ import { ContextMenuCommandModule, ContextMenuCommandModuleData } from '../class
 import { MessageCommandModule, MessageCommandModuleData } from "../classes/modules/commands/MessageCommandModule.js";
 import { CooldownCacheSweeperOptions } from "../classes/managers/CooldownManager.js";
 import { Precondition, PreconditionData } from "../classes/structures/Precondition.js";
-import { InteractionEventModule, InteractionEventModuleData } from "../classes/modules/events/InteractionEventModule.js";
-import { AutocompleteEventModule, AutocompleteEventModuleData } from "../classes/modules/events/AutocompleteEventModule.js";
+import { EventModule, EventModuleData } from "../classes/modules/events/EventModule.js";
+import { InteractionCreateEventModule, InteractionCreateEventModuleData } from "../classes/modules/events/InteractionCreateEventModule.js";
 import { ButtonEventModule, ButtonEventModuleData } from "../classes/modules/events/ButtonEventModule.js";
+import { AutocompleteEventModule, AutocompleteEventModuleData } from "../classes/modules/events/AutocompleteEventModule.js";
 import { ModalSubmitEventModule, ModalSubmitEventModuleData } from "../classes/modules/events/ModalSubmitEventModule.js";
 import { SelectMenuEventModule, SelectMenuEventModuleData } from "../classes/modules/events/SelectMenuEventModule.js";
 
@@ -119,8 +120,10 @@ export type AnyMessageCommandOptionResolvable = MessageCommandStringOptionResolv
 export type AnyCommandModule = SlashCommandModule | ContextMenuCommandModule | MessageCommandModule
 export type AnyCommandModuleData = SlashCommandModuleData | ContextMenuCommandModuleData | MessageCommandModuleData
 export type AnyCommandModuleResolvable = SlashCommandModuleResolvable | ContextMenuCommandModuleResolvable | MessageCommandModuleResolvable
-export type AnyEventModule = InteractionEventModule | AutocompleteEventModule | ButtonEventModule | ModalSubmitEventModule | SelectMenuEventModule
-export type AnyEventModuleData = InteractionEventModuleData | AutocompleteEventModuleData | ButtonEventModuleData | ModalSubmitEventModuleData | SelectMenuEventModuleData
+export type AnyEventModule = AnyInteractionEventModule | EventModule
+export type AnyEventModuleData = AnyInteractionEventModuleData | EventModuleData
+export type AnyInteractionEventModule = InteractionCreateEventModule | ButtonEventModule | AutocompleteEventModule | ModalSubmitEventModule | SelectMenuEventModule
+export type AnyInteractionEventModuleData = InteractionCreateEventModuleData | ButtonEventModuleData | AutocompleteEventModuleData | ModalSubmitEventModuleData | SelectMenuEventModuleData
 export type AnyPreconditionExecuteFunction = SlashCommandPreconditionExecuteFunction | ContextMenuCommandPreconditionExecuteFunction | MessageCommandPreconditionExecuteFunction
 export type AnyVortexusModule = AnyCommandModule | AnyEventModule
 export type AnyVortexusModuleData = AnyCommandModuleData | AnyEventModuleData
