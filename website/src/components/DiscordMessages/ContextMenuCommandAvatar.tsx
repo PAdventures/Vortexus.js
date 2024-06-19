@@ -1,11 +1,11 @@
-import { DiscordAttachment, DiscordCommand, DiscordMessage, DiscordMessages } from "@skyra/discord-components-react";
+import { DiscordImageAttachment, DiscordCommand, DiscordMessage, DiscordMessages } from "@skyra/discord-components-react";
 
 export default function ContextMenuCommandAvatar() {
     return (
         <DiscordMessages style={{ borderRadius: 6 }}>
             <DiscordMessage profile="vortexus">
                 <DiscordCommand slot="reply" command="Avatar" profile="padventures" />
-                <DiscordAttachment slot="attachments" url="/img/padventures.png" alt="PAdventures Discord Profile Picture" width={250} />
+                <DiscordImageAttachment slot="attachments" url="/img/padventures.png" alt="PAdventures Discord Profile Picture" width={250} />
             </DiscordMessage>
         </DiscordMessages>
     )
