@@ -1,0 +1,265 @@
+---
+sidebar_position: 2
+title: Creating Commands
+---
+import Tabs from '@theme/Tabs'
+import TabItem from "@theme/TabItem"
+import SlashCommandPing from "@site/src/components/DiscordMessages/SlashCommandPing.tsx"
+import ContextMenuCommandAvatar from "@site/src/components/DiscordMessages/ContextMenuCommandAvatar.tsx"
+import MessageCommandPing from "@site/src/components/DiscordMessages/MessageCommandPing.tsx"
+
+Vortexus.js handles commands for you for all command types; Slash Commands, Context Menu Commands and Message Commands.
+All you need to do, is to manage how the command execution will work.
+
+In the section of the guide you will learn how to create Slash Commands, Context Menu Commands and Message Commands by using modules.
+Don't worry if you're not sure how modules work, Vortexus.js is built around them and you can learn more about them here.
+
+:::warning
+This guide will only use code snippets for JavaScript ESM. Please go to the TypeScript Guide if you are using a TypeScript setup
+:::
+
+## Slash Commands
+
+Create a `.js` file in your module folder, just make sure it is added to the config file, name it anything you want.
+In this example, it will named `slashcommand.js`.
+
+### Creating the Slash Command Module
+
+Open your file in your code editor/IDE, export a class and extend it from the `SlashCommandModule` class.
+
+```javascript title="slashcommand.js" showLineNumbers
+import { SlashCommandModule } from "@vortexus.js/core"
+
+export class SlashCommand extends SlashCommandModule {
+    versions = "1.0.0",
+
+    execute: (interaction) => {
+        await interaction.reply("Replied")
+    }
+}
+
+export default new SlashCommand();
+```
+
+:::warning
+Make sure to add the `export default new <CLASS>()` to every command module
+:::
+
+### Adding the Slash Command Builder
+
+To add your command, you will need to import `SlashCommandBuilder` from **discord.js** and add your command inside the `data` attribute.
+We will also edit the response from the interaction to be `Pong`
+
+```javascript title="slashcommand.js" showLineNumbers {7-9,12-13}
+import { SlashCommandModule } from "@vortexus.js/core"
+import { SlashCommandBuilder } from "discord.js"
+
+export class SlashCommand extends SlashCommandModule {
+    versions = "1.0.0",
+
+    data: new SlashCommandBuilder()
+        .setName('ping')
+        .setDescription('Reply with pong')
+
+    execute: (interaction) => {
+        await interaction.reply("Pong")
+        return
+    }
+}
+
+export default new SlashCommand();
+```
+
+:::danger
+The `execute` methods expect an `Awaitable<void>` return. Either don't use the return symbol, or strictly return `void`.
+
+Returning a value, other than `void`, will cause the command to error out
+
+<Tabs>
+    <TabItem value='valid' label='Valid'>
+        ```javascript title="slashcommand.js" showLineNumbers
+        import { SlashCommandModule } from "@vortexus.js/core"
+
+        export class SlashCommand extends SlashCommandModule {
+            // command attributes
+        
+            execute: (interaction) => {
+                await interaction.reply("Valid")
+                return;
+                // or
+                // return void;
+            }
+        }
+
+        export default new SlashCommand();
+        ```
+    </TabItem>
+    <TabItem value='invalid' label='Invalid'>
+        ```javascript title="slashcommand.js" showLineNumbers
+        import { SlashCommandModule } from "@vortexus.js/core"
+
+        export class SlashCommand extends SlashCommandModule {
+            // command attributes
+        
+            execute: (interaction) => {
+                //error-line
+                return await interaction.reply("Invalid") // will cause an error
+            }
+        }
+
+        export default new SlashCommand();
+        ```
+    </TabItem>
+</Tabs>
+:::
+
+### Resulting output
+
+Now head over to discord and type `/ping` and your app should respond with `Pong`
+
+<SlashCommandPing />
+\
+If you want to learn more about how to structure the slash command,
+please head over to the discord.js guide on the [`SlashCommandBuilder`](https://discordjs.guide/slash-commands/advanced-creation.html#adding-options).
+Keep in mind that they will use a different method to handle commands than we use them.
+
+## Context Menu Commands
+
+Context Menu Commands are a very good tool in a discord server, when used correctly.
+There are 2 types of Context Menu Commands: `Message` and `User`.
+Each will activate when you right-click on a message, or user, and choose one of the commands in the `Apps` section of the drop-down menu.
+
+### Creating the Context Menu Command Module
+
+Create another `.js` file in your module folder and name it whatever you want.
+In this example, we will create a `User` context menu with the file name of `usercontextmenucommand.js`.
+
+Open your file in your code editor/IDE, export a class and extend it from the `ContextMenuCommandModule` class.
+
+```javascript title="usercontextmenucommand.js" showLineNumbers
+import { ContextMenuCommandModule } from "@vortexus.js/core"
+
+export class UserContextMenuCommand extends ContextMenuCommandModule {
+    versions = "1.0.0",
+
+    execute: (interaction) => {
+        await interaction.reply("Replied")
+    }
+}
+
+export default new UserContextMenuCommand();
+```
+
+:::warning
+Just like last time, make sure to add the `export default new <CLASS>()` to every command module
+:::
+
+### Adding the Context Menu Command Builder
+
+To add your command, you will need to import `ContextMenuCommandBuilder` from **discord.js** and add your command inside the `data` attribute.
+We will also edit the response from the interaction to be the avatar of the user
+
+```javascript title="usercontextmenucommand.js" showLineNumbers {7-9,12-19}
+import { ContextMenuCommandModule } from "@vortexus.js/core"
+import { ContextMenuCommandBuilder, ApplicationCommandType, AttachmentBuilder } from "discord.js"
+
+export class UserContextMenuCommand extends ContextMenuCommandModule {
+    versions = "1.0.0",
+
+    data: new ContextMenuCommandBuilder()
+        .setName("Avatar")
+        .setType(ApplicationCommandType.User)
+
+    execute: (interaction) => {
+        await interaction.reply({
+            files: [
+                new AttachmentBuilder(interaction.user.displayAvatarURL({ extension: 'png' }), {
+                    name: `${interaction.user.username}-avatar.png`
+                })
+            ]
+        })
+        return;
+    }
+}
+
+export default new UserContextMenuCommand();
+```
+
+### Resulting output
+
+Now head over to discord and activate the Context Menu Command `Avatar` and your app should respond with a user's avatar
+
+<ContextMenuCommandAvatar />
+\
+If you want to learn more about how to structure the context menu command,
+please head over to the discord.js docs on the [`ContextMenuCommandBuilder`](https://discord.js.org/docs/packages/builders/1.8.2/ContextMenuCommandBuilder:Class).
+Keep in mind that they will use a different method to handle commands than we use them.
+
+## Message Commands
+
+Messages commands aren't as commonly used any longer, however, we give you the option to continue to use them.
+Message commands are triggered by typing the [`prefix`](Configuration.mdx#commands), name of the command and, the arguments
+
+### Creating the Message Command Module
+
+Create another `.js` file in your module folder and name it whatever you want.
+In this example we will name the file `messagecommand.js`.
+
+Open your file in your code editor/IDE, export a class and extend it from the `MessageCommandModule` class.
+
+```javascript title="messagecommand.js" showLineNumbers
+import { MessageCommandModule } from "@vortexus.js/core"
+
+export class MessageCommand extends MessageCommandModule {
+    versions = "1.0.0",
+
+    execute: (message) => {
+        await message.channel.send("Replied")
+    }
+}
+
+export default new MessageCommand();
+```
+
+:::warning
+Message command's execute function param is a `Message<boolean>` not an `interaction`
+
+Once again, make sure to add the `export default new <CLASS>()` to every command module
+:::
+
+### Adding the Message Command Builder
+
+To add your command, you will need to import `MessageCommandBuilder` from **@vortexus.js/core** and add your command inside the `data` attribute.
+We will also edit the response from the message to me `Pong`
+
+:::warning
+The `MessageCommandBuilder` needs to be imported from the `@vortexus.js/core` package, **not** discord.js
+:::
+
+```javascript title="messagecommand.js" showLineNumbers {6-8,11-12}
+import { MessageCommandModule, MessageCommandBuilder } from "@vortexus.js/core"
+
+export class MessageCommand extends MessageCommandModule {
+    versions = "1.0.0",
+
+    data: new MessageCommandBuilder()
+        .setName('ping')
+        .setDescription('Reply with Pong')
+
+    execute: (message) => {
+        await message.channel.send("Pong")
+        return
+    }
+}
+
+export default new MessageCommand();
+```
+
+### Resulting output
+
+Now head over to discord and type `!ping` and your app should respond with `Pong`
+
+<MessageCommandPing />
+\
+If you want to learn more about how to structure the message command,
+please head over to the [`Message Commands`](/Guide/Message-Commands/Advanced-Creation.mdx) page.

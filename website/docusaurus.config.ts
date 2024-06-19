@@ -44,6 +44,13 @@ const config: Config = {
     markdown: {
         format: 'detect'
     },
+    
+    scripts: [
+        {
+            src: '/discord-components.config.js',
+            async: false
+        }
+    ],
 
     plugins: [
         [
@@ -54,7 +61,8 @@ const config: Config = {
                 entryPoints: ["../packages/core/src/index.ts"],
                 tsconfig: '../packages/core/tsconfig.json',
                 readme: '../packages/core/README.md',
-                out: './docs/Documentation/api-core'
+                out: './docs/Documentation/api-core',
+                plugin: ['typedoc-plugin-mdn-links', 'typedoc-plugin-djs-links']
             }
         ],
         [
@@ -65,7 +73,8 @@ const config: Config = {
                 entryPoints: ["../packages/utility/src/index.ts"],
                 tsconfig: '../packages/utility/tsconfig.json',
                 readme: '../packages/utility/README.md',
-                out: './docs/Documentation/api-utility'
+                out: './docs/Documentation/api-utility',
+                plugin: ['typedoc-plugin-mdn-links', 'typedoc-plugin-djs-links']
             }
         ],
         [
@@ -76,7 +85,8 @@ const config: Config = {
                 entryPoints: ["../packages/vortexus.js/src/index.ts"],
                 tsconfig: '../packages/vortexus.js/tsconfig.json',
                 readme: '../packages/vortexus.js/README.md',
-                out: './docs/Documentation/api-vortexus.js'
+                out: './docs/Documentation/api-vortexus.js',
+                plugin: ['typedoc-plugin-mdn-links', 'typedoc-plugin-djs-links']
             }
         ],
     ],
@@ -101,8 +111,20 @@ const config: Config = {
 	],
 
 	themeConfig: {
-		// Replace with your project's social card
-		image: 'img/docusaurus-social-card.jpg',
+        tableOfContents: {
+            minHeadingLevel: 2,
+            maxHeadingLevel: 4
+        },
+        announcementBar: {
+            content: "⚠️ Vortexus.js is currently being developed. Everything on this website is subject to be changed frequently ⚠️",
+            isCloseable: false,
+            backgroundColor: "#ff0000",
+            textColor: "#fff"
+        },
+        colorMode: {
+            defaultMode: 'dark',
+            respectPrefersColorScheme: true
+        },
 		navbar: {
 			title: 'Vortexus.js',
 			logo: {
@@ -175,7 +197,7 @@ const config: Config = {
 		},
 		prism: {
 			theme: prismThemes.github,
-			darkTheme: prismThemes.dracula,
+			darkTheme: prismThemes.oneDark,
             magicComments: [
                 {
                     className: 'theme-code-block-highlighted-line',

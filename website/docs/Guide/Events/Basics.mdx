@@ -1,0 +1,61 @@
+---
+sidebar_position: 0
+title: Basics
+---
+
+import EventModulesEcho from "@site/src/components/DiscordMessages/EventModulesEcho.tsx"
+
+Receiving events to your app and handling them is an important aspect of any discord app.
+Therefore, we obviously made it easier for you to use them.
+Similar to [command modules](/Guide/Getting-Started/Command-Modules.mdx), events use the module system to handle events.
+
+In this guide, you will learn how to setup a basic event module to listen for an `interactionCreate` event
+
+## Event Module Structure
+
+Here is how an event module may be structured
+
+```javascript title="exampleevent.js" showLineNumbers
+import { EventModule } from "@vortexus.js/core"
+
+export class ExampleEvent extends EventModule {
+    id: 'my.cool.module.id',
+    versions: "1.0.0",
+    execute: () => {},
+}
+
+export default new ExampleEvent()
+```
+
+* `id` - The unique identifier for the module, explained in more detail [here](/Guide/Getting-Started/Command-Modules.mdx#id)
+* `versions` - Minimum version needed to run the module, explained in more detail [here](/Guide/Getting-Started/Command-Modules.mdx#versions)
+* `execute` - The function where the client will be passed so you can listen for an event
+
+### The execute function
+
+The execute function is the only attribute you need to actually modify in order for the event module to run properly.
+The `VortexusClient<true>` will be passed into the execute function for you to access to call the `on` and `once` methods to listen for certain events.
+
+Here is an example
+
+```javascript title="exampleevent.js" showLineNumbers
+import { EventModule } from "@vortexus.js/core"
+
+export class ExampleEvent extends EventModule {
+    execute: (client) => {
+        client.on("messageCreate", (message) => {
+            if (message.author.bot) return;
+            await message.channel.send(`Echo: ${message}`)
+        })
+        return;
+    }
+}
+
+export default new ExampleEvent();
+```
+
+:::warning
+Just like for the command modules, the `execute` method expects an `Awaitable<void>` return
+:::
+
+<EventModulesEcho />
