@@ -14,7 +14,7 @@
         "@types/node": "^20.14.6",
         "rimraf": "^5.0.7",
         "turbo": "^2.0.4",
-        "typescript": "^5.4.5"
+        "typescript": "^5.5.2"
     },
     "dependencies": {
         "@changesets/cli": "^2.27.5"
