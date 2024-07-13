@@ -7,8 +7,7 @@
         "flush": "turbo run flush"
     },
     "workspaces": [
-        "packages/*",
-        "website"
+        "packages/*"
     ],
     "devDependencies": {
         "@types/node": "^20.14.0",
