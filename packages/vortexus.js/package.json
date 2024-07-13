@@ -1,0 +1,40 @@
+{
+    "name": "vortexus.js",
+    "version": "0.0.0",
+    "author": {
+        "name": "PAdventures",
+        "email": "padventures.contact@gmail.com"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/PAdventures/Vortexus.js",
+        "directory": "packages/vortexus"
+    },
+    "module": "./dist/index.js",
+    "bin": {
+        "vortexus.js": "./dist/bin.js"
+    },
+    "type": "module",
+    "description": "Vortexus.js is a complex and flexible Discord.js bot framework made to be simple",
+    "keywords": [
+        "vortexus",
+        "discord.js",
+        "framework"
+    ],
+    "license": "GPL-3.0",
+    "scripts": {
+        "flush": "rimraf ./dist",
+        "build": "npm run flush && tsc"
+    },
+    "types": ".dist/index.d.ts",
+    "dependencies": {
+        "@vortexus.js/core": "*",
+        "commander": "^12.1.0",
+        "dotenv": "^16.4.5",
+        "fallout-utility": "^2.9.0",
+        "semver": "^7.6.2"
+    },
+    "files": [
+        "dist"
+    ]
+}

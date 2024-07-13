@@ -1,0 +1,38 @@
+{
+    "name": "@vortexus.js/utility",
+    "description": "Utility items to be used by Vortexus",
+    "license": "GPL-3.0",
+    "version": "1.0.0",
+    "module": ".dist/index.js",
+    "types": ".dist/index.d.ts",
+    "type": "module",
+    "keywords": [
+        "vortexus",
+        "utility",
+        "helper"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/PAdventures/Vortexus.js",
+        "directory": "packages/utility"
+    },
+    "scripts": {
+        "flush": "rimraf ./dist",
+        "build": "npm run flush && tsc"
+    },
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js",
+            "require": "./dist/index.js"
+        },
+        "./tsconfig.json": "./assets/tsconfig.json"
+    },
+    "files": [
+        "assets",
+        "dist"
+    ],
+    "dependencies": {
+        "fallout-utility": "^2.9.1"
+    }
+}

@@ -1,0 +1,10 @@
+{
+    "extends": "@vortexus.js/utility/tsconfig.json",
+    "compilerOptions": {
+        "rootDir": "./src",
+        "outDir": "./dist",
+        "declaration": true,
+        "allowJs": true,
+        "resolveJsonModule": true
+    }
+}

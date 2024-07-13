@@ -1,0 +1,19 @@
+{
+    "$schema": "https://turbo.build/schema.json",
+    "tasks": {
+        "build": {
+            "dependsOn": ["^build"],
+            "outputs": ["dist/**"],
+            "inputs": ["scr/**/*", "package.json", "README.md", "tsconfig.json"]
+        },
+        "vortexus.js#build": {
+            "dependsOn": ["@vortexus.js/core#build"]
+        },
+        "website#build": {
+            "dependsOn": ["@vortexus.js/core#build", "vortexus.js#build", "@vortexus.js/utility#build"]
+        },
+        "flush": {
+            "inputs": ["dist/**"]
+        }
+    }
+}
