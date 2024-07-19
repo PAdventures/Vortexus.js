@@ -29,7 +29,7 @@
     "dependencies": {
         "@sapphire/result": "^2.6.6",
         "@vortexus.js/utility": "*",
-        "semver": "^7.6.2"
+        "semver": "^7.6.3"
     },
     "exports": {
         ".": {
