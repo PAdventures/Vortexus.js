@@ -1,25 +1,38 @@
 import { normalizeArray, RestOrArray } from "discord.js";
-import { AnyMessageCommandOptionBuilder, AnyMessageCommandOptionBuilderData, MessageCommandIntegerOptionResolvable, MessageCommandStringOptionResolvable } from "../../types/structures.js";
-import { MessageCommandBooleanOptionBuilder, MessageCommandChannelOptionBuilder, MessageCommandIntegerOptionBuilder, MessageCommandNumberOptionBuilder, MessageCommandRoleOptionBuilder, MessageCommandStringOptionBuilder, MessageCommandUserOptionBuilder } from "./MessageCommandOptionBuilders.js";
-import { MessageCommandOptionType } from "../../types/constants.js";
-import { MessageCommandBuilderData } from "../../interfaces/builders/MessageCommandBuilder.js";
+import { MessageCommandOptionType } from "../../types/Enums.js";
+import { MessageCommandBooleanOptionBuilder } from "./message_command_options/MessageCommandBooleanOptionBuilder.js";
+import { MessageCommandChannelOptionBuilder } from "./message_command_options/MessageCommandChannelOptionBuilder.js";
+import { MessageCommandIntegerOptionBuilder, MessageCommandIntegerOptionResolvable } from "./message_command_options/MessageCommandIntegerOptionBuilder.js";
+import { MessageCommandNumberOptionBuilder } from "./message_command_options/MessageCommandNumberOptionBuilder.js";
+import { MessageCommandRoleOptionBuilder } from "./message_command_options/MessageCommandRoleOptionBuilder.js";
+import { MessageCommandStringOptionBuilder, MessageCommandStringOptionResolvable } from "./message_command_options/MessageCommandStringOptionBuilder.js";
+import { MessageCommandUserOptionBuilder } from "./message_command_options/MessageCommandUserOptionBuilder.js";
+import { AnyMessageCommandOptionBuilderData } from "../../types/Any.js";
+
+export interface MessageCommandBuilderData {
+    name: string;
+    description: string;
+    aliases?: string[];
+    dm_permission?: boolean;
+    allow_bots?: boolean;
+    options?: AnyMessageCommandOptionBuilderData[];
+}
 
 export class MessageCommandBuilder implements MessageCommandBuilderData {
     public name!: string;
     public description!: string;
-    public aliases?: string[] | undefined;
-    public dm_permission?: boolean | undefined;
-    public allow_bots?: boolean | undefined;
-    public options: AnyMessageCommandOptionBuilder[] = [];
+    public aliases?: string[];
+    public dm_permission?: boolean;
+    public allow_bots?: boolean;
+    public options: AnyMessageCommandOptionBuilderData[] = [];
 
-    constructor(data: MessageCommandBuilderData) {
-        this.setName(data.name);
-        this.setDescription(data.description);
-        
-        if (data.aliases) this.setAliases(data.aliases);
-        if (data.dm_permission) this.setDMPermission(data.dm_permission);
-        if (data.allow_bots) this.setAllowBots(data.allow_bots);
-        if (data.options && data.options.length > 0) {
+    constructor(data?: MessageCommandBuilderData) {
+        if (data?.name) this.setName(data.name);
+        if (data?.description) this.setDescription(data.description);
+        if (data?.aliases) this.setAliases(data.aliases);
+        if (data?.dm_permission) this.setDMPermission(data.dm_permission);
+        if (data?.allow_bots) this.setAllowBots(data.allow_bots);
+        if (data?.options && data.options.length > 0) {
             for (const option of data.options) {
                 if (option.type === MessageCommandOptionType.Boolean) this.addBooleanOption(MessageCommandBooleanOptionBuilder.from(option));
                 if (option.type === MessageCommandOptionType.Channel) this.addChannelOption(MessageCommandChannelOptionBuilder.from(option));
@@ -142,7 +155,7 @@ export class MessageCommandBuilder implements MessageCommandBuilderData {
             aliases: this.aliases,
             dm_permission: this.dm_permission,
             allow_bots: this.allow_bots,
-            options: this.options.map(option => option.toJSON())
+            options: this.options,
         }
     }
 }
